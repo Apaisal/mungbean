@@ -11,7 +11,7 @@ import io
 import csv
 
 if __name__ == '__main__':
-    files = glob.glob('/media/General/Dropbox/THESIS/images/kumpangsand/single/Picture76/*.png')
+    files = glob.glob('../image/10022011/*.jpg')
     
     feature1 = feature.extraction.first_order_stat(files)
     feature2 = feature.extraction.moment_base(files)
