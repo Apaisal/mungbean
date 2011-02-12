@@ -22,15 +22,16 @@ def moment_base(name_images):
     features = dict()
     for name in name_images:
         A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
-        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_TOZERO_INV)
+#        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_TOZERO_INV)
         moment = cv.Moments(A)
         hu = cv.GetHuMoments(moment)
-        features[name] = {  "spatialmoment":cv.GetSpatialMoment(moment, 0, 0)
-                          , "centralmoment":cv.GetCentralMoment(moment, 0, 0)
-                          , "normcentralmoment":cv.GetNormalizedCentralMoment(moment, 0, 0)
-                          , "hu":hu
-                          , "centralofmass": (moment.m10 / moment.m00, moment.m01 / moment.m00)
+        features[name] = {  "hu":hu
+                          , "centroid": (moment.m10 / moment.m00, moment.m01 / moment.m00)
                           , "orientation" : orientation(moment)
+#                          ,"spatialmoment":cv.GetSpatialMoment(moment, 0, 0)
+#                          , "centralmoment":cv.GetCentralMoment(moment, 0, 0)
+#                          , "normcentralmoment":cv.GetNormalizedCentralMoment(moment, 0, 0)
+                           
                           }
     return features
 
@@ -44,7 +45,7 @@ def first_order_stat(name_images):
     for name in name_images:
         A = Image.open(name)
         A = A.convert('L')
-        A = A.point(lambda i: i < 100 and i)
+#        A = A.point(lambda i: i < 100 and i)
 #        A.save('temp.jpg','JPEG')
         statis = ImageStat.Stat(A)
         features[name] = {  'mean':statis._getmean()[0] 
@@ -63,8 +64,13 @@ def first_order_stat(name_images):
 def orientation(moments):
     '''
     '''
+    u00 = cv.GetCentralMoment(moments, 0, 0)
     u11 = cv.GetCentralMoment(moments, 1, 1)
     u20 = cv.GetCentralMoment(moments, 2, 0)
     u02 = cv.GetCentralMoment(moments, 0, 2)
     
-    return arctan(2*u11 / (u20 - u02)) / 2
+    du20 = u20 / u00
+    du02 = u02 / u00
+    du11 = u11 / u00        
+    
+    return arctan(2*du11 / (du20 - du02)) / 2
