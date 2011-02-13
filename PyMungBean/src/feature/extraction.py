@@ -22,8 +22,8 @@ def moment_base(name_images):
     features = dict()
     for name in name_images:
         A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
-#        cv.Threshold(A, A, 150, 255, cv.CV_THRESH_TOZERO_INV)
-        cv.ShowImage("m", A)
+#        cv.Threshold(A, A, 110, 255, cv.CV_THRESH_BINARY_INV)
+        cv.ShowImage("m", findcontours(A))
         cv.WaitKey()
         moment = cv.Moments(A)
         hu = cv.GetHuMoments(moment)
@@ -33,6 +33,19 @@ def moment_base(name_images):
 
                           }
     return features
+
+def findcontours(img):
+    storage = cv.CreateMemStorage(0)
+    contours = cv.FindContours(img, storage, cv.CV_RETR_LIST, cv.CV_CHAIN_APPROX_SIMPLE, (0, 0))
+    img_contour = cv.CreateImage(cv.GetSize(img), 8, 1)
+    cv.SetZero(img_contour)
+    _contours = contours
+#    while _contours:
+    print len(_contours)
+    cv.DrawContours(img_contour, _contours , cv.Scalar(0, 255, 0), cv.Scalar(0, 0, 255), 40, 2, 8, (0, 0))
+
+#        _contours = contours.h_next()
+    print img_contour
 
 def getPerimeter(img):
     '''
