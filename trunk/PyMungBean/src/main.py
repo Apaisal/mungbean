@@ -18,10 +18,10 @@ if __name__ == '__main__':
     feature2 = feature.extraction.moment_base(files)
     feature3 = feature.extraction.fourier(files)
 
-    with open('firstorderstat.csv', "w") as fd:
+    with open('features.csv', "w") as fd:
         write = csv.writer(fd, delimiter = '\t', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
         header = feature1.values()[0].keys() + feature2.values()[0].keys()
-        fd.write('file_name\t')
+        fd.write('file name\t')
         write.writerow(header)
 
         for f in files:
