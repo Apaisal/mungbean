@@ -9,7 +9,7 @@ import csv
 
 
 if __name__ == '__main__':
-    files = glob.glob('../image/10022011/*.jpg')
+    files = glob.glob('../image/10022011/k*.jpg')
 
 #===============================================================================
 # Feature Extraction
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     feature2 = feature.extraction.moment_base(files)
     feature3 = feature.extraction.fourier(files)
 
-    with open('features.csv', "w") as fd:
+    with open('kfeatures.csv', "w") as fd:
         write = csv.writer(fd, delimiter = '\t', quotechar = '|', quoting = csv.QUOTE_MINIMAL)
         header = feature1.values()[0].keys() + feature2.values()[0].keys()
         fd.write('file name\t')
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
         for f in files:
             fd.write(f + '\t')
-            values = feature1[f].values() + feature2[f].values() + feature3[f].values()
+            values = feature1[f].values() + feature2[f].values() #+ feature3[f].values()
             write.writerow(values)
 
 #===============================================================================
