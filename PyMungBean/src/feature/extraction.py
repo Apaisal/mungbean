@@ -3,7 +3,7 @@ Created on Feb 8, 2011
 
 @author: anol
 '''
-import Image, ImageStat, numpy
+import Image, ImageStat, numpy as np
 import cv
 from numpy.ma.core import arctan, max
 
@@ -87,8 +87,15 @@ def fourier(name_images):
 def moment_base(name_images):
 
     area = []
-    hu = []
-    features = {'area':area, 'hu':hu}
+    hu1 = []
+    hu2 = []
+    hu3 = []
+    hu4 = []
+    hu5 = []
+    hu6 = []
+    hu7 = []
+
+    features = {'area':area, 'hu1':hu1, 'hu2':hu2, 'hu3':hu3, 'hu4':hu4, 'hu5':hu5, 'hu6':hu6, 'hu7':hu7}
     for name in name_images:
         A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
         cv.Threshold(A, A, 90, 255, cv.CV_THRESH_BINARY_INV)
@@ -96,7 +103,14 @@ def moment_base(name_images):
         area.append(findcontoursarea(A))
 
         moment = cv.Moments(A)
-        hu.append(cv.GetHuMoments(moment))
+        hu = cv.GetHuMoments(moment)
+        hu1.append(hu[0])
+        hu2.append(hu[1])
+        hu3.append(hu[2])
+        hu4.append(hu[3])
+        hu5.append(hu[4])
+        hu6.append(hu[5])
+        hu7.append(hu[6])
 #        features[name] = {  "hu":hu
 ##                          , "centroid": (moment.m10 / moment.m00, moment.m01 / moment.m00)
 ##                          , "orientation" : orientation(moment)
@@ -148,10 +162,10 @@ def first_order_stat(name_images):
     std = []
     rms = []
     features = {
-                'mean':mean
-                , 'var':var
-#                 'std':std
-#                , 'rms':rms
+#                'mean':mean
+#                , 'var':var
+                 'std':std
+                , 'rms':rms
                 }
     for name in name_images:
         im = Image.open(name, 'r').convert('RGB')
@@ -161,8 +175,8 @@ def first_order_stat(name_images):
         img = img[1].point(lambda i: i < 90 and i)
 
         statis = ImageStat.Stat(img)
-        mean.append(statis._getmean()[0])
-        var.append(statis._getvar()[0])
+#        mean.append(statis._getmean()[0])
+#        var.append(statis._getvar()[0])
         std.append(statis._getstddev()[0])
         rms.append(statis._getrms()[0])
 
@@ -187,7 +201,7 @@ def normalize(features):
     '''
     '''
     for feature in features:
-        arr = numpy.array(features[feature])
+        arr = np.array(features[feature])
         arr = ((arr - arr.min()) / (arr.max() - arr.min()))
         features[feature] = arr
 

@@ -11,7 +11,7 @@ def FDR_comp(X, y, ind):
     '''
     '''
     (l, N) = X.shape
-    c = np.max(y)
+    c = int(np.max(y))
     vari = []
     m = []
 
