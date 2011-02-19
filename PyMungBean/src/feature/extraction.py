@@ -79,26 +79,29 @@ def fourier(name_images):
         cvShiftDFT(real, real)
         cvShiftDFT(imagine, imagine)
 
-        cv.ShowImage('real', real)
+#        cv.ShowImage('real', real)
 #        cv.ShowImage('imagine', imagine)
-        cv.WaitKey()
+#        cv.WaitKey()
     return features
 
 def moment_base(name_images):
-    features = dict()
+
+    area = []
+    hu = []
+    features = {'area':area, 'hu':hu}
     for name in name_images:
         A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
         cv.Threshold(A, A, 90, 255, cv.CV_THRESH_BINARY_INV)
-        chaincode(A)
-        area = findcontoursarea(A)
+#        chaincode(A)
+        area.append(findcontoursarea(A))
 
         moment = cv.Moments(A)
-        hu = cv.GetHuMoments(moment)
-        features[name] = {  "hu":hu
-#                          , "centroid": (moment.m10 / moment.m00, moment.m01 / moment.m00)
-#                          , "orientation" : orientation(moment)
-                          , "area" : area
-                          }
+        hu.append(cv.GetHuMoments(moment))
+#        features[name] = {  "hu":hu
+##                          , "centroid": (moment.m10 / moment.m00, moment.m01 / moment.m00)
+##                          , "orientation" : orientation(moment)
+#                          , "area" : area
+#                          }
     normalize(features)
     return features
 
@@ -140,25 +143,19 @@ def chaincode(img):
 
 def first_order_stat(name_images):
 
-    features = dict()
+    mean = []
+    var = []
+    features = {'mean':mean, 'var':var}
     for name in name_images:
         im = Image.open(name, 'r').convert('RGB')
         img = im.split()
+
         # Get green component
         img = img[1].point(lambda i: i < 90 and i)
-#        img.save('temp.jpg', 'JPEG')
-#        img.show()
+
         statis = ImageStat.Stat(img)
-        features[name] = {  'mean':statis._getmean()[0]
-                            , 'stddev':statis._getstddev()[0]
-                            , 'var':statis._getvar()[0]
-                            , 'count':statis._getcount()[0]
-                            , 'sum':statis._getsum()[0]
-                            , 'sum2':statis._getsum2()[0]
-                            , 'rms':statis._getrms()[0]
-#                            , 'median':statis._getmedian()[0]
-#                            , 'extrema':statis._getextrema()[0]
-                            }
+        mean.append(statis._getmean()[0])
+        var.append(statis._getvar()[0])
 
     normalize(features)
     return  features
@@ -180,21 +177,27 @@ def orientation(moments):
 def normalize(features):
     '''
     '''
-    lfeature = []
-    count = len(features.values()[0])
-    for i in range(count):
-        for file in features:
-            lfeature.append(features[file].values()[i])
-        lfeature.sort()
-        max = lfeature[-1]
-        min = lfeature[0]
-        del lfeature[:]
-        for file in features:
-            keys = features[file].keys()
-            if keys[i] == 'hu':
-                break
-            value = features[file][keys[i]]
-            value -= min
-            if value != 0:
-                value /= (max - min)
-            features[file][keys[i]] = value
+    for feature in features:
+        arr = numpy.array(features[feature])
+        arr = ((arr - arr.min()) / (arr.max() - arr.min()))
+        features[feature] = arr
+
+
+#    lfeature = []
+#    count = len(features.values()[0])
+#    for i in range(count):
+#        for file in features:
+#            lfeature.append(features[file].values()[i])
+#        lfeature.sort()
+#        max = lfeature[-1]
+#        min = lfeature[0]
+#        del lfeature[:]
+#        for file in features:
+#            keys = features[file].keys()
+#            if keys[i] == 'hu':
+#                break
+#            value = features[file][keys[i]]
+#            value -= min
+#            if value != 0:
+#                value /= (max - min)
+#            features[file][keys[i]] = value
