@@ -145,7 +145,14 @@ def first_order_stat(name_images):
 
     mean = []
     var = []
-    features = {'mean':mean, 'var':var}
+    std = []
+    rms = []
+    features = {
+                'mean':mean
+                , 'var':var
+#                 'std':std
+#                , 'rms':rms
+                }
     for name in name_images:
         im = Image.open(name, 'r').convert('RGB')
         img = im.split()
@@ -156,6 +163,8 @@ def first_order_stat(name_images):
         statis = ImageStat.Stat(img)
         mean.append(statis._getmean()[0])
         var.append(statis._getvar()[0])
+        std.append(statis._getstddev()[0])
+        rms.append(statis._getrms()[0])
 
     normalize(features)
     return  features

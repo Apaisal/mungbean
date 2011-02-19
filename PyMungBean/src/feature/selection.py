@@ -10,20 +10,20 @@ from scipy import stats
 def FDR_comp(X, y, ind):
     '''
     '''
-    l, N = X.shape
+    (l, N) = X.shape
     c = np.max(y)
     vari = []
     m = []
 
-    for i in range(1, c):
-        y_temp = [y == i]
+    for i in range(1, c + 1):
+        y_temp = (y == i).nonzero()[1]
         X_temp = X[ind, y_temp]
-        m[i] = matlib.mean(X_temp)
-        vari[i] = matlib.var(X_temp)
+        m.append(matlib.mean(X_temp))
+        vari.append(matlib.var(X_temp))
 
-    a = stats.binom_test(range(1, c), 2)
-    q = (m[a[:, 1]] - m[a[:, 2]]) ^ 2 / (vari(a[:, 1]) + vari[a[:, 2]])
-    return sum(q);
+    a = stats.binom_test(range(c), 2)
+    q = ((m[0] - m[1]) ** 2) / (vari[0] ** 2 + vari[1] ** 2)
+    return np.sum(q);
 
 
 def scatter_mat(X, y):
