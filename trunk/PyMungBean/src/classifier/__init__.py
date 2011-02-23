@@ -49,20 +49,22 @@ def decisionSurface(classifier, trainingdata, testdata, fileName = None, **args)
     if 'delta' in args :
         delta = args['delta']
 
+#    x = arange(xmin, xmax, float(1) / testdata.labels.classSize[0])
+#    y = arange(ymin, ymax, float(1) / testdata.labels.classSize[1])
     x = arange(xmin, xmax, delta)
     y = arange(ymin, ymax, delta)
 #
     Z = numpy.zeros((len(x), len(y)), numpy.float_)
-#    gridX = numpy.zeros((len(x) * len(y), 2), numpy.float_)
-#    n = 0
-#    for i in range(len(x)) :
-#    for j in range(len(y)) :
-#        gridX[n][0] = x[i]
-#        gridX[n][1] = y[j]
-#        n += 1
-    gridData = trainingdata #VectorDataSet(gridX)
+    gridX = numpy.zeros((len(x) * len(y), 2), numpy.float_)
+    n = 0
+    for i in range(len(x)) :
+        for j in range(len(y)) :
+            gridX[n][0] = x[i]
+            gridX[n][1] = y[j]
+            n += 1
+    gridData = VectorDataSet(gridX)
     gridData.attachKernel(data.kernel)
-    results = classifier.test(gridData)
+    results = classifier.cv(gridData)
 
     n = 0
     for i in range(len(x)) :
@@ -70,7 +72,7 @@ def decisionSurface(classifier, trainingdata, testdata, fileName = None, **args)
             Z[i][j] = results.decisionFunc[n]
             n += 1
 
-    #pylab.figure()
+    pylab.figure()
     im = pylab.imshow(numpy.transpose(Z),
                       interpolation = 'bilinear', origin = 'lower',
                       cmap = pylab.cm.gray, extent = (xmin, xmax, ymin, ymax))
