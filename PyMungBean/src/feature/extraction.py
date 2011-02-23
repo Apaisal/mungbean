@@ -98,8 +98,10 @@ def moment_base(name_images):
     features = {'area':area, 'hu1':hu1, 'hu2':hu2, 'hu3':hu3, 'hu4':hu4, 'hu5':hu5, 'hu6':hu6, 'hu7':hu7}
     for name in name_images:
         A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
-        cv.Threshold(A, A, 90, 255, cv.CV_THRESH_BINARY_INV)
+        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_BINARY_INV)
 #        chaincode(A)
+#        cv.ShowImage('moment', A)
+#        cv.WaitKey()
         area.append(findcontoursarea(A))
 
         moment = cv.Moments(A)
@@ -162,10 +164,10 @@ def first_order_stat(name_images):
     std = []
     rms = []
     features = {
-#                'mean':mean
-#                , 'var':var
-                 'std':std
-                , 'rms':rms
+                'mean':mean
+                , 'var':var
+#                 'std':std
+#                , 'rms':rms
                 }
     for name in name_images:
         im = Image.open(name, 'r').convert('RGB')
@@ -175,10 +177,10 @@ def first_order_stat(name_images):
         img = img[1].point(lambda i: i < 90 and i)
 
         statis = ImageStat.Stat(img)
-#        mean.append(statis._getmean()[0])
-#        var.append(statis._getvar()[0])
-        std.append(statis._getstddev()[0])
-        rms.append(statis._getrms()[0])
+        mean.append(statis._getmean()[0])
+        var.append(statis._getvar()[0])
+#        std.append(statis._getstddev()[0])
+#        rms.append(statis._getrms()[0])
 
     normalize(features)
     return  features

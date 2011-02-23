@@ -54,9 +54,14 @@ def scatter_mat(X, y):
 def choice_strongfeature(X, y, FDR, threshold = 100):
     '''
     '''
-    selected = []
-    c = int(np.max(y))
-    ind = (np.array(FDR) > 50).nonzero()[0]
+#    selected = []
+#    c = int(np.max(y))
+    ind = []
+    ind.extend(FDR)
+    ind.sort()
+    ind = ind[-2]
+    ind = (np.array(FDR) >= ind).nonzero()[0]
+#    ind = (np.array(FDR) >= max(FDR)).nonzero()[0]
 #    for i in range(1, c + 1):
 #        y_temp = (y == i).nonzero()[1]
     f_seled = X.take(ind, axis = 0)
