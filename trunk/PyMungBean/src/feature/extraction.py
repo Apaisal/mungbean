@@ -105,6 +105,8 @@ def moment_base(name_images):
         area.append(findcontoursarea(A))
 
         moment = cv.Moments(A)
+#        print moment.m00
+#        area.append(cv.GetSpatialMoment(moment, 0, 0))
         hu = cv.GetHuMoments(moment)
         hu1.append(hu[0])
         hu2.append(hu[1])
@@ -119,6 +121,7 @@ def moment_base(name_images):
 #                          , "area" : area
 #                          }
     normalize(features)
+    A = None
     return features
 
 def findcontoursarea(img):
@@ -170,19 +173,28 @@ def first_order_stat(name_images):
 #                , 'rms':rms
                 }
     for name in name_images:
-        im = Image.open(name, 'r').convert('RGB')
-        img = im.split()
+        with open(name, "r") as fd:
+#        im = cv.LoadImage(name, cv.CV_LOAD_IMAGE_COLOR)
+#        conv = cv.CreateImage(cv.GetSize(im), 8, 3)
+#        img = cv.CreateImage(cv.GetSize(im), 8, 1)
+#        cv.CvtColor(im, conv, cv.CV_RGB2HLS)
+#        cv.Split(conv, None, None, img, None)
+#        cv.Threshold(img, img, 48, 255, cv.CV_THRESH_TOZERO)
+#        pi = Image.fromstring("L", cv.GetSize(img), img.tostring())
+            im = Image.open(fd, 'r').convert('RGB')
+            pi = im.split()
 
-        # Get green component
-        img = img[1].point(lambda i: i < 90 and i)
+            # Get green component
+            pi = pi[1].point(lambda i: i < 90 and i)
 
-        statis = ImageStat.Stat(img)
-        mean.append(statis._getmean()[0])
-        var.append(statis._getvar()[0])
-#        std.append(statis._getstddev()[0])
-#        rms.append(statis._getrms()[0])
+            statis = ImageStat.Stat(pi)
+            mean.append(statis._getmean()[0])
+            var.append(statis._getvar()[0])
+    #        std.append(statis._getstddev()[0])
+    #        rms.append(statis._getrms()[0])
 
     normalize(features)
+
     return  features
 
 def orientation(moments):
