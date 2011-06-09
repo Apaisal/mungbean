@@ -15,7 +15,7 @@ from PyML import * #@UnusedWildImport
 import classifier
 
 
-id = '4'
+id = '1'
 selected_file = 'selected%s.csv' % (id)
 test_file = 'test%s.data' % (id)
 svm_file = 'svm%s.data' % (id)
