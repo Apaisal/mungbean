@@ -216,7 +216,7 @@ def normalize(features):
     '''
     for feature in features:
         arr = np.array(features[feature])
-        arr = ((arr - arr.min()) / (arr.max() - arr.min()))
+        arr = (((arr - arr.min()) / (arr.max() - arr.min())) * 2.0) - 1
         features[feature] = arr
 
 
