@@ -7,14 +7,16 @@ import cv
 from numpy import fft
 import numpy as np
 import matplotlib.pyplot as plt
+from feature.extraction import ellipticFS
 
 if __name__ == '__main__':
     
-    imgfile = '/home/anol/Pictures/Picture23.jpg'
+    imgfile = '/home/anol/workspace/PyMungBean/dataset/multiple/Picture23.jpg'
     org_img = cv.LoadImage(imgfile, cv.CV_LOAD_IMAGE_COLOR)
     img = cv.CreateImage((640, 380), 8, 3)
     cv.Resize(org_img, img, cv.CV_INTER_LINEAR)
     cv.ShowImage("org image", img)
+    output_img = cv.CloneImage(img)
     grayimg = cv.CreateImage(cv.GetSize(img), 8, 1)
     cv.Zero(grayimg)
     cv.CvtColor(img, grayimg, cv.CV_RGB2GRAY)
@@ -62,21 +64,24 @@ if __name__ == '__main__':
 #        cv.Zero(gray_seed)
         cv.CvtColor(seed, gray_seed, cv.CV_RGB2GRAY)
 #
-#        cv.Threshold(gray_seed, gray_seed, 100, 255, cv.CV_THRESH_BINARY)
-        moments = cv.Moments(gray_seed, 0)
-        
+        cv.Threshold(gray_seed, gray_seed, 100, 255, cv.CV_THRESH_BINARY)
+        moments = cv.Moments(gray_seed, True)
+#        cv.ShowImage('binary', gray_seed)
+#        cv.WaitKey()
         '''Get Centroid'''
         win_height = 120
         win_width = 120
         x_bar = cv.GetSpatialMoment(moments, 1, 0) / cv.GetSpatialMoment(moments, 0, 0)
         y_bar = cv.GetSpatialMoment(moments, 0, 1) / cv.GetSpatialMoment(moments, 0, 0)
-        window = (x_bar - win_width / 2, y_bar - win_height / 2, win_width, win_height)
+        x_start = x_bar - win_width / 2
+        y_start = y_bar - win_height / 2
+        window = (cv.Round(x_start), cv.Round(y_start), win_width, win_height)
         cv.SetImageROI(gray_seed, window);
-#        hu = cv.GetHuMoments(moment)
-#        print hu
         num_pixel = cv.CountNonZero(gray_seed)
+        print "A number of the kernel area : %s" % (num_pixel)
         if num_pixel > 3200:
             '''separate touching kernel'''
+            print "Touching kernel"
             touching_grain = cv.CloneImage(gray_seed)
             cv.Zero(touching_grain)
             seq_b = cv.FindContours(gray_seed, cv.CreateMemStorage(), cv.CV_RETR_LIST, cv.CV_CHAIN_APPROX_NONE, (0, 0))
@@ -90,24 +95,38 @@ if __name__ == '__main__':
                 imag.append(y)
 
             comp = np.array([real, imag])
-            a = fft.fft2(comp)
+            
+            #TODO '''Elliptic fourier series'''
+            x, y, p = ellipticFS(seq_b, 2)
+           
             plt.subplot(111)
-            plt.plot(a[0], 'b-',a[1],'r-')
+            plt.plot(x, 'b-',y,'r-')
             plt.grid(True)
             plt.show()
-
-#            cv.DFT(src, dst, cv.CV_DXT_SCALE, 0)
-#            cv.Rectangle(touching_grain, (x, y), (x, y), ext_color)            
-            cv.ShowImage("bound", touching_grain)
+        
+            cv.ShowImage("bound", gray_seed)
             cv.WaitKey()    
         elif num_pixel < 1500:
-            '''flaw & imperfect kernel 
-                reject'''
+            print 'flaw & imperfect kernel must reject'
+            r = cv.CreateImage(cv.GetSize(output_img), 8, 1)
+            g = cv.CreateImage(cv.GetSize(output_img), 8, 1)
+            b = cv.CreateImage(cv.GetSize(output_img), 8, 1)          
+            cv.Split(output_img, b, g, r, None)
+            cv.SetImageROI(r, window);
+            cv.Add(r, gray_seed, r)
+            cv.ResetImageROI(r)
+            cv.Merge(b, g, r, None, output_img)
+            cv.ShowImage("output", output_img)
+            cv.WaitKey()
         else:  
-            '''  
-            cv.ShowImage("dst", gray_seed)
-            cv.WaitKey()'''
+            print 'This is a single kernel'
+#            Find HU moment
+            moments = cv.Moments(gray_seed, True)
+            h1, h2, h3, h4, h5, h6, h7 = cv.GetHuMoments(moments)
+            
         cv.ResetImageROI(gray_seed);
         
         
         seq = seq.h_next()
+        
+    
