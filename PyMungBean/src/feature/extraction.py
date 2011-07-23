@@ -220,91 +220,87 @@ def normalize(features):
         arr = (((arr - arr.min()) / (arr.max() - arr.min())) * 2.0) - 1
         features[feature] = arr
 
+def sign(number):return cmp(number, 0)
 
 def elliptic_coeff(seq , n, K, t):
     T = sum(t)
     f1 = T / (2 * pow(n, 2) * pow(pi, 2))
     f2 = 0
     f3 = 0
-    tp_1 = tp = 0
-    dp_1 = dp = 0
-    
-    for p in range(1, K):
-        if p == 1:
-            dp_1 = tp_1 = 0
-        else:    
-            tp_1 = tp
-            dp_1 = dp    
-        tp = sum(t[:p])
-        dp = sum(seq[:p]) 
+    tp = 0
+    dp = 0
+    tp_1 = 0
+    dp_1 = 0
+    x = (2 * n * pi) / T
+    for p in range(1, K + 1):
+        tp = sum(t[0:p])
+        dp = sum(seq[0:p])
         delta_tp = tp - tp_1
         delta_dp = dp - dp_1
         if delta_dp != 0:
-            f2 += (delta_dp / delta_tp) * (cos(2 * n * pi * tp / T) - cos(2 * n * pi * tp_1 / T)) 
-            f3 += (delta_dp / delta_tp) * (sin(2 * n * pi * tp / T) - sin(2 * n * pi * tp_1 / T))
+            f2 += (delta_dp / delta_tp) * (cos(x * tp) - cos(x * tp_1))
+            f3 += (delta_dp / delta_tp) * (sin(x * tp) - sin(x * tp_1))
+        tp_1 = tp
+        dp_1 = dp
 
-    
+
     return f1 * f2, f1 * f3
 
-def ellipticFS(seq, harmonic):
+def ellipticFS(seq, harmonic, time):
     ''''''
     x = []
     y = []
     t = []
-    dx = []
-    dy = []
-    K = len(seq)
     seta = 0
-    A0 = C0 = 0
-    An = Cn = 0
-    fourier_power = 0
-    xp = yp = 0
-    xp_1 = yp_1 = 0
-        
-    for p in range(K):
-        if p == 0:
-            xp_1, yp_1 = xp, yp = seq[p]
-        else:
-            xp_1, yp_1 = xp, yp
-            xp, yp = seq[p]
-    
-        dx.append(xp - xp_1)
-        dy.append(yp - yp_1)
-                
-        delta_ti = sqrt(pow(dx[p], 2) + pow(dy[p], 2))
+    A0 = 0
+    C0 = 0
+    An = 0
+    Cn = 0
+#    fourier_power = 0
+    K = len(seq)
+
+    for p in seq:
+        delta_xi = sign(6 - p) * sign(2 - p)
+        delta_yi = sign(4 - p) * sign(p)
+        delta_ti = 1 + ((sqrt(2) - 1) / 2) * (1 - pow(-1, p))
+        x.append(delta_xi)
+        y.append(delta_yi)
         t.append(delta_ti)
-    
-    for p in range(1, K):
-        for n in range(1, harmonic):
-            seta = (2 * n * pi * p) / sum(t)
-            an, bn = elliptic_coeff(dx, n, K, t)
-            cn, dn = elliptic_coeff(dy, n, K, t)
-             
-            An += an * cos(seta) 
-            An += bn * sin(seta)
-            Cn += cn * cos(seta)
-            Cn += cn * sin(seta)
-            
-            """Fourier Power"""
-            fourier_power += pow(an, 2)
-            fourier_power += pow(bn, 2)
-            fourier_power += pow(cn, 2)
-            fourier_power += pow(dn, 2)
-    
+
+    T = sum(t)
+    z = 2 * pi * time
+
+#    for p in range(1, K):
+#        for j in range(p):
+
+    for n in range(1, harmonic + 1):
+        seta = (z * n) / T
+        an, bn = elliptic_coeff(x, n, K, t)
+        cn, dn = elliptic_coeff(y, n, K, t)
+
+        An += an * cos(seta)
+        An += bn * sin(seta)
+        Cn += cn * cos(seta)
+        Cn += cn * sin(seta)
+
+        """Fourier Power"""
+#        fourier_power += pow(an, 2)
+#        fourier_power += pow(bn, 2)
+#        fourier_power += pow(cn, 2)
+#        fourier_power += pow(dn, 2)
+
         if p == 1:
             A0 = An
             C0 = Cn
-            x.append(An)
-            y.append(Cn)
-        else:
-            x.append(A0 + An)
-            y.append(C0 + Cn)
-    
-    fourier_power /= 2    
-    
-    return x, y, fourier_power
-    
-    
+
+    x = A0 + An
+    y = C0 + Cn
+
+#    fourier_power /= 2
+
+    return x, y#, fourier_power
+
+
 #    lfeature = []
 #    count = len(features.values()[0])
 #    for i in range(count):
