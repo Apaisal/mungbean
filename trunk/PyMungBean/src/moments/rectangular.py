@@ -16,12 +16,15 @@ def xfrange(start, stop, step):
         yield start
         start += step
 
-def Rectangular(img):
+def Rectangular(img, ptr1 = (25,25), ptr2 = (76,76)):
     rect = cv.CloneImage(img)
     cv.Zero(rect)
     cv.Zero(img)
-    pt1 = (25, 25)
-    pt2 = (76, 76)
+    if (ptr1[0] > ptr2[0]) or (ptr1[1] > ptr2[1]):
+        print "Please check size."
+        return
+    pt1 = ptr1
+    pt2 = ptr2
     cv.Rectangle(rect, pt1, pt2, WHITE, 1, 8)
     storage = cv.CreateMemStorage()
     seq = cv.FindContours(rect, storage, cv.CV_RETR_LIST, cv.CV_CHAIN_APPROX_SIMPLE)
