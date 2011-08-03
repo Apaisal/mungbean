@@ -16,11 +16,11 @@ def xfrange(start, stop, step):
         yield start
         start += step
 
-def Ellipse(img):
+def Ellipse(img, size = (80,50)):
     ellip = cv.CloneImage(img)
 
     ellip_center = (cv.Round(WIDTH * 0.5) + 1, cv.Round(HEIGTH * 0.5) + 1)
-    ellip_size = (80, 50)
+    ellip_size = size
     cv.Zero(ellip)
     box = (ellip_center, ellip_size, 0.0)
     cv.EllipseBox(ellip, box, WHITE, 1, 8, 0)

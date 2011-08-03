@@ -16,14 +16,14 @@ def xfrange(start, stop, step):
         yield start
         start += step
 
-def Circle(img):
+def Circle(img, r=40):
     circ = cv.CloneImage(img)
     center = (cv.Round(WIDTH * 0.5) + 1, cv.Round(HEIGTH * 0.5) + 1)
-    radius = 40
+    radius = r
     cv.Zero(circ)
     cv.Circle(circ, center, radius, WHITE)
     storage = cv.CreateMemStorage()
-    seq = cv.FindContours(circ, storage, cv.CV_RETR_TREE, cv.CV_CHAIN_APPROX_SIMPLE)
+    seq = cv.FindContours(circ, storage, cv.CV_RETR_LIST, cv.CV_CHAIN_APPROX_NONE)
     cv.DrawContours(img, seq, WHITE, BLACK, -1, cv.CV_FILLED, 8)
     return img
 
