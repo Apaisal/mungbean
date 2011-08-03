@@ -25,7 +25,7 @@ ext_fig2 = plt.figure(2)
 ext_fig3 = plt.figure(3)
 sel_fig = plt.figure(4)
 seled_fig = plt.figure(5)
-final_fig = plt.figure(6)
+#final_fig = plt.figure(6)
 
 fea1 = ext_fig1.add_subplot(111)
 fea1.grid()
@@ -122,7 +122,7 @@ if __name__ == '__main__':
     fx.set_title('Fisher\'s Discriminate Ratio')
     fx.set_xticks(range(len(X)))
     fx.set_xticklabels((xlabel))
-    plt.draw()
+#    plt.draw()
     # Choice ratio more than 50
     ind , selected = feature.selection.choice_strongfeature(X, y, FDR, 50)
 
@@ -146,9 +146,9 @@ if __name__ == '__main__':
     k2 = ker.Polynomial(2) #ker.Gaussian(gamma = 0.5)
     k1 = ker.Linear()
     snl = ml.SVM(k2)
-    snl.C = 100
+    snl.C = 10
     sl = ml.SVM(k1)
-    sl.C = 100
+    sl.C = 10
 
 #===============================================================================
 # Classifies
@@ -196,8 +196,8 @@ if __name__ == '__main__':
 #===============================================================================
 
     sl.train(trainingset1)
-    result1 = sl.cv(testset1, 5)
-#    r1.plotROC('roc_linear%s.eps' % (id))
+    result1 = sl.cv(testset1)
+    result1.plotROC('roc_linear%s.pdf' % (id))
     print result1
 
 #===============================================================================
@@ -205,12 +205,12 @@ if __name__ == '__main__':
 #===============================================================================
 
     snl.train(trainingset2)
-    result2 = snl.cv(testset2, 5)
-#    r2.plotROC('roc_nonlinear%s.eps' % (id))
+    result2 = snl.cv(testset2)
+    result2.plotROC('roc_nonlinear%s.pdf' % (id))
     print result2
 
-    classifier.scatter(trainingset1)
-    plt.show()
+#    classifier.scatter(trainingset1)
+#    plt.show()
 
     sl = None
     snl = None
