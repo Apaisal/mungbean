@@ -98,14 +98,32 @@ def moment_base(name_images):
 
     features = {'area':area, 'hu1':hu1, 'hu2':hu2, 'hu3':hu3, 'hu4':hu4, 'hu5':hu5, 'hu6':hu6, 'hu7':hu7}
     for name in name_images:
-        A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
-        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_BINARY_INV)
+        A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_COLOR)
+
 #        chaincode(A)
 #        cv.ShowImage('moment', A)
 #        cv.WaitKey()
-        area.append(findcontoursarea(A))
+        hsv = cv.CreateImage(cv.GetSize(A), 8, 3)
 
-        moment = cv.Moments(A)
+        s_plane = cv.CreateImage(cv.GetSize(A), 8, 1)
+
+        cv.CvtColor(A, hsv, cv.CV_RGB2HSV)
+
+        cv.Split(hsv, None, s_plane, None, None)
+        gs = cv.CloneImage(s_plane)
+        cv.Zero(gs)
+
+        cv.Smooth(s_plane, s_plane, cv.CV_MEDIAN, 3, 3)
+
+        cv.Add(s_plane, s_plane, gs)
+
+        cv.Threshold(s_plane, s_plane, 100, 255, cv.CV_THRESH_BINARY)
+#        cv.ShowImage("median", s_plane)
+#        cv.WaitKey()
+
+        area.append(findcontoursarea(s_plane))
+
+        moment = cv.Moments(s_plane, True)
 #        print moment.m00
 #        area.append(cv.GetSpatialMoment(moment, 0, 0))
         hu = cv.GetHuMoments(moment)
