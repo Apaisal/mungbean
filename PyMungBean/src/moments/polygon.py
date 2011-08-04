@@ -11,8 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d as p3
 import matplotlib.cm as cm
-from matplotlib import pyplot
-#from matplotlib.cm import 
+import matplotlib.mlab as mlab
 import os, sys
 import string
 
@@ -40,9 +39,9 @@ def onMouse(event, x, y, flags, param):
         cv.Circle(img, (x, y), 0, WHITE)
     if event == cv.CV_EVENT_LBUTTONDOWN:
         print "Down"
-        param[0].append((x, y))
-        img = param[1]
-        cv.Circle(img, (x, y), 0, WHITE)
+#        param[0].append((x, y))
+#        img = param[1]
+#        cv.Circle(img, (x, y), 0, WHITE)
     if event == cv.CV_EVENT_LBUTTONUP:
         print "Up"
     if flags == cv.CV_EVENT_FLAG_CTRLKEY:
@@ -55,6 +54,7 @@ def help():
     print "c = create circle"
     print "r = create rectangle"
     print "p = create polygon"
+    print "l = load image from spec. file"
 
 if __name__ == '__main__':
     help()
@@ -81,11 +81,9 @@ if __name__ == '__main__':
             break
         elif key == ord('d'):
             cv.Zero(img)
-            del points[:]
-            
+            del points[:]       
         elif key == 10:
-            cv.FillConvexPoly(img, points, WHITE)
-            
+            cv.FillConvexPoly(img, points, WHITE)       
         elif key == ord('m'):
             result = ''
             for deg in xfrange(0.0, 360.0, 1.0):
@@ -98,14 +96,15 @@ if __name__ == '__main__':
                 moment = cv.Moments(dst, 1)
                 hu = cv.GetHuMoments(moment)
                 data.append(hu)
-                log = "%3.2f\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
+                log = "%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
+#                log = "%3.2f\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
+#                log = "%3.2f\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
                 result += log
                 print log
                 cv.ShowImage('Box', dst)
                 if cv.WaitKey(10) == 27:
                     break
-            cv.DestroyWindow('Box')
-            
+            cv.DestroyWindow('Box')      
         elif key == ord('e'):
             import ellipse
             print "Put ellipce size"
@@ -118,8 +117,7 @@ if __name__ == '__main__':
                 x = string.atoi(x)
                 y = string.atoi(y)
                 
-            ellipse.Ellipse(img, (x, y))
-            
+            ellipse.Ellipse(img, (x, y))      
         elif key == ord('r'):
             import rectangular
             print "Put rectangular size"
@@ -138,8 +136,7 @@ if __name__ == '__main__':
                 y1 = string.atoi(y1)
                 x2 = string.atoi(x2)
                 y2 = string.atoi(y2)
-            rectangular.Rectangular(img, (x1, y1), (x2, y2))
-            
+            rectangular.Rectangular(img, (x1, y1), (x2, y2))     
         elif key == ord('c'):
             import circle
             print "Put radius of circle"
@@ -149,7 +146,6 @@ if __name__ == '__main__':
             else:
                 r = string.atoi(r)
             circle.Circle(img, r)
-            
         elif key == ord('s'):
             dir = "./result/"
             if not os.path.exists(dir):
@@ -160,13 +156,62 @@ if __name__ == '__main__':
                 continue
             if os.path.exists(dir + filename):
                 print "File exist"
-                continue
+                rep = raw_input('replace (y/n) :')
+                if rep == 'n':
+                    continue
             fd = open(dir + filename, 'w')
             fd.write(result)
             fd.close()
             cv.SaveImage(dir + filename + ".png", img)
             print "Save file completed"
-            
+        elif key == ord('l'):
+            import Tkinter, tkFileDialog
+            root = Tkinter.Tk()
+            root.withdraw()
+            format = [('Portable Network Graphic', '.png'), ]
+            filename = tkFileDialog.askopenfilename(parent=root, \
+                                                     filetypes=format, \
+                                                     title="Select image file", \
+                                                     initialdir="./result")
+            if filename == "":
+                print "File not choose"
+            else:
+                img = cv.LoadImage(filename, cv.CV_LOAD_IMAGE_UNCHANGED)         
+        elif key == ord('p'):
+            select = raw_input('Selection order(1-7) or all(a) to show :')
+            fig = plt.figure(1)
+
+            if select in str(range(1, 8)):
+
+                ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], polar=True)
+                N = 20
+                theta = np.arange(0.0, 2 * np.pi, 2 * np.pi / N)
+                radii = 1#0 * np.random.rand(N)
+                width = 1 #np.pi / 4 * np.random.rand(N)
+                bars = ax.bar(theta, radii, width=width, bottom=0.0)
+                for r, bar in zip(radii, bars):
+                    bar.set_facecolor(cm.jet(r / 10.))
+                    bar.set_alpha(0.5)
+            elif select == 'a':
+                ax = p3.Axes3D(fig)
+                for c, z in zip(['r', 'g', 'b', 'y'], [30, 20, 10, 0]):
+                    xs = np.arange(20)
+                    ys = np.random.rand(20)
+    
+                    # You can provide either a single color or an array. To demonstrate this,
+                    # the first bar of each set will be colored cyan.
+                    cs = [c] * len(xs)
+                    cs[0] = 'c'
+                    ax.bar(xs, ys, zs=z, zdir='y', color=cs, alpha=0.8)
+    
+                    ax.set_xlabel('Degree')
+                    ax.set_ylabel('Hu')
+                    ax.set_zlabel('Value')
+            fig.canvas.draw()
+            fig.show()
+        else:
+            continue    
+           
 #        elif key == ord('x'):
 #            dst = cv.CloneImage(img)
 #            cv.Zero(dst)
@@ -202,41 +247,5 @@ if __name__ == '__main__':
 #            cv.ResetImageROI(dst)
 #            cv.ShowImage('move', dst)
 ##            cv.WaitKey()
-#            print 'plot'
-        elif key == ord('p'):
-            fig = plt.figure()
-
-            select = raw_input('Selection order(1-7) or all(a) to show :')
-            if select in str(range(1, 8)):
-
-                ax = fig.add_axes([0.1, 0.1, 0.8, 0.8], polar=True)
-                N = 20
-                theta = np.arange(0.0, 2 * np.pi, 2 * np.pi / N)
-                radii = 10 * np.random.rand(N)
-                width = 1 #np.pi / 4 * np.random.rand(N)
-                bars = ax.bar(theta, radii, width=width, bottom=0.0)
-                for r, bar in zip(radii, bars):
-                    bar.set_facecolor(plt.jet(r / 10.))
-                    bar.set_alpha(0.5)
-            elif select == 'a':
-                ax = p3.Axes3D(fig)
-                for c, z in zip(['r', 'g', 'b', 'y'], [30, 20, 10, 0]):
-                    xs = np.arange(20)
-                    ys = np.random.rand(20)
-
-                    # You can provide either a single color or an array. To demonstrate this,
-                    # the first bar of each set will be colored cyan.
-                    cs = [c] * len(xs)
-                    cs[0] = 'c'
-                    ax.bar(xs, ys, zs=z, zdir='y', color=cs, alpha=0.8)
-
-                ax.set_xlabel('Degree')
-                ax.set_ylabel('Hu')
-                ax.set_zlabel('Value')
-#            
-
-            plt.show()
-        else:
-            continue    
-        
+#            print 'plot'        
 #            print 'plot'
