@@ -93,17 +93,18 @@ if __name__ == '__main__':
                 cv.Zero(mapMatrix)
                 cv.GetRotationMatrix2D((cv.Round(size[0] * 0.5) + 1, cv.Round(size[0] * 0.5) + 1), deg, 1.0, mapMatrix)
                 cv.WarpAffine(img, dst, mapMatrix)
+                cv.ShowImage('Box', dst)
+                if cv.WaitKey(10) == 27:
+                    break
                 moment = cv.Moments(dst, 1)
                 hu = cv.GetHuMoments(moment)
                 data.append(hu)
-                log = "%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
+                log = "%d\t%e\t%e\t%e\t%e\t%e\t%e\t%e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
 #                log = "%3.2f\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\t%8.3e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
 #                log = "%3.2f\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\t%+8.3e\n" % (deg, hu[0], hu[1], hu[2], hu[3], hu[4], hu[5], hu[6])
                 result += log
                 print log
-                cv.ShowImage('Box', dst)
-                if cv.WaitKey(10) == 27:
-                    break
+                
             cv.DestroyWindow('Box')      
         elif key == ord('e'):
             import ellipse
@@ -147,22 +148,29 @@ if __name__ == '__main__':
                 r = string.atoi(r)
             circle.Circle(img, r)
         elif key == ord('s'):
+            import Tkinter, tkFileDialog
+            root = Tkinter.Tk()
+            root.withdraw()
             dir = "./result/"
             if not os.path.exists(dir):
                 os.mkdir(dir)
-            filename = raw_input('Name of File :')
+            filename = tkFileDialog.asksaveasfilename(parent=root, \
+#                                                     filetypes=format, \
+                                                     title="Save image file", \
+                                                     initialdir="./result")
+#            filename = raw_input('Name of File :')
             if filename == "":
                 print "No filename"
                 continue
-            if os.path.exists(dir + filename):
-                print "File exist"
-                rep = raw_input('replace (y/n) :')
-                if rep == 'n':
-                    continue
-            fd = open(dir + filename, 'w')
+#            if os.path.exists(dir + filename):
+#                print "File exist"
+#                rep = raw_input('replace (y/n) :')
+#                if rep == 'n':
+#                    continue
+            fd = open(filename, 'w')
             fd.write(result)
             fd.close()
-            cv.SaveImage(dir + filename + ".png", img)
+            cv.SaveImage(filename + ".png", img)
             print "Save file completed"
         elif key == ord('l'):
             import Tkinter, tkFileDialog
@@ -171,7 +179,7 @@ if __name__ == '__main__':
             format = [('Portable Network Graphic', '.png'), ]
             filename = tkFileDialog.askopenfilename(parent=root, \
                                                      filetypes=format, \
-                                                     title="Select image file", \
+                                                     title="Load image file", \
                                                      initialdir="./result")
             if filename == "":
                 print "File not choose"
