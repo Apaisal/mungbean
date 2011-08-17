@@ -18,7 +18,7 @@ import string
 
 WIDTH = 101
 HEIGTH = 101
-
+lstPoint = []
 WHITE = cv.Scalar(0xff, 0xff, 0xff, 0)
 BLACK = cv.Scalar(0, 0, 0, 0)
 
@@ -34,9 +34,11 @@ def onMouse(event, x, y, flags, param):
 
     if event == cv.CV_EVENT_LBUTTONDBLCLK:
         print "LB DB CLK"
-        param[0].append((x, y))
-        img = param[1]
-        cv.Circle(img, (x, y), 0, WHITE)
+        if lstPoint.count((x,y)) == 0:
+            param[0].append((x, y))
+            img = param[1]
+            lstPoint.append((x, y))
+            cv.Circle(img, (x, y), 0, WHITE)
     if event == cv.CV_EVENT_LBUTTONDOWN:
         print "Down"
 #        param[0].append((x, y))
@@ -81,6 +83,7 @@ if __name__ == '__main__':
             break
         elif key == ord('d'):
             cv.Zero(img)
+            del lstPoint[:]
             del points[:]       
         elif key == 10:
             cv.FillConvexPoly(img, points, WHITE)       
@@ -184,7 +187,8 @@ if __name__ == '__main__':
             if filename == "":
                 print "File not choose"
             else:
-                img = cv.LoadImage(filename, cv.CV_LOAD_IMAGE_UNCHANGED)         
+                img = cv.LoadImage(filename, cv.CV_LOAD_IMAGE_UNCHANGED)
+                  
         elif key == ord('p'):
             select = raw_input('Selection order(1-7) or all(a) to show :')
             fig = plt.figure(1)
@@ -217,6 +221,10 @@ if __name__ == '__main__':
                     ax.set_zlabel('Value')
             fig.canvas.draw()
             fig.show()
+        elif key == ord('u'):
+            '''Undo'''
+            if len(lstPoint) > 0:
+                cv.Circle(img, lstPoint.pop(len(lstPoint) - 1), 0, BLACK)
         else:
             continue    
            
