@@ -98,7 +98,7 @@ def moment_base(name_images):
 
     features = {'area':area, 'hu1':hu1, 'hu2':hu2, 'hu3':hu3, 'hu4':hu4, 'hu5':hu5, 'hu6':hu6, 'hu7':hu7}
     for name in name_images:
-        A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_COLOR)
+        A = cv.LoadImage(name, cv.CV_LOAD_IMAGE_COLOR)
 
 #        chaincode(A)
 #        cv.ShowImage('moment', A)
@@ -108,20 +108,22 @@ def moment_base(name_images):
         s_plane = cv.CreateImage(cv.GetSize(A), 8, 1)
 
         cv.CvtColor(A, hsv, cv.CV_RGB2HSV)
-
+#        cv.SaveImage("hsv.png", hsv)
         cv.Split(hsv, None, s_plane, None, None)
+#        cv.SaveImage("sat.png", s_plane)
         gs = cv.CloneImage(s_plane)
         cv.Zero(gs)
 
         cv.Smooth(s_plane, s_plane, cv.CV_MEDIAN, 3, 3)
-
+#        cv.SaveImage("median.png", s_plane)
         cv.Add(s_plane, s_plane, gs)
 
         cv.Threshold(s_plane, s_plane, 100, 255, cv.CV_THRESH_BINARY)
 #        cv.ShowImage("median", s_plane)
 #        cv.WaitKey()
+#        cv.SaveImage("remove_bg.png", s_plane)
 
-        area.append(findcontoursarea(s_plane))
+        area.append(findcontoursarea(s_plane, A))
 
         moment = cv.Moments(s_plane, True)
 #        print moment.m00
@@ -143,7 +145,8 @@ def moment_base(name_images):
     A = None
     return features
 
-def findcontoursarea(img):
+def findcontoursarea(img, org):
+
     storage = cv.CreateMemStorage(0)
     contours = cv.FindContours(img, storage, cv.CV_RETR_LIST, cv.CV_CHAIN_APPROX_SIMPLE, (0, 0))
 #    img_contour = cv.CreateImage(cv.GetSize(img), 8, 1)
@@ -154,11 +157,16 @@ def findcontoursarea(img):
         cv.DrawContours(img, _contours , cv.Scalar(255, 255, 255, 0), cv.Scalar(0, 0, 255, 0), 0, cv.CV_FILLED, 8, (0, 0))
         area += cv.ContourArea(_contours)
         _contours = _contours.h_next()
-#    cv.ShowImage("c", img_contour)
-#    cv.WaitKey()
+#        cv.ShowImage("c", img)
+#        if cv.WaitKey() == 10:
+#            tmp = cv.CloneImage(org)
+#            cv.Zero(tmp)
+#            cv.Merge(img, img, img, None, tmp)
+#            cv.And(org, tmp, tmp)
+#            cv.SaveImage("rgb_remove_bg.png", tmp)
 #    if cv.CheckContourConvexity(contours) == 1:
 #        cv.convexHull()
-
+#    return cv.CountNonZero(img)
     return area
 
 def perimeter(name_images):
