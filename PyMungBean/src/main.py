@@ -46,8 +46,8 @@ def extraction(files):
     return features
 
 if __name__ == '__main__':
-    kfiles = glob.glob('../dataset/training_set%s/k*.jpg' % (id))
-    cfiles = glob.glob('../dataset/training_set%s/c*.jpg' % (id))
+    kfiles = glob.glob('../dataset/training_set%s/kamphangsean2/*.jpg' % (id))
+    cfiles = glob.glob('../dataset/training_set%s/chainat72/c*.jpg' % (id))
 
 #===============================================================================
 # Feature Extraction class k
@@ -81,15 +81,15 @@ if __name__ == '__main__':
     fea1.set_ylabel('Mean')
 #    fea1.set_xlabel('STD')
 #    fea1.set_ylabel('RMS')
-    fea1.set_title('Color Statistic')
+    fea1.set_title('Color')
     fea1.plot(x1[0], x1[1], 'rx')
     fea1.plot(x2[0], x2[1], 'bo')
-    fea1.legend(('KPS1', 'CN72'))
+    fea1.legend(('KPS2', 'CN72'))
 # Plot Area
-    fea2.set_title('Contour Area')
-    fea2.plot(x1[8], 'b-')
-    fea2.plot(x2[8], 'g.-')
-    fea2.legend(('KPS1', 'CN72'))
+    fea2.set_title('Size')
+    fea2.plot(x1[8], 'rx')
+    fea2.plot(x2[8], 'bo')
+    fea2.legend(('KPS2', 'CN72'))
 
 # Plot Hu
     fea3.set_title('Seven Moments of HU')
@@ -153,8 +153,8 @@ if __name__ == '__main__':
 #===============================================================================
 # Classifies
 #===============================================================================
-    files1 = glob.glob('../dataset/test_set%s/k*.jpg' % (id))
-    files2 = glob.glob('../dataset/test_set%s/c*.jpg' % (id))
+    files1 = glob.glob('../dataset/test_set%s/kamphangsean2/k*.jpg' % (id))
+    files2 = glob.glob('../dataset/test_set%s/chainat72/c*.jpg' % (id))
     c1 = extraction(files1)
     c2 = extraction(files2)
 
