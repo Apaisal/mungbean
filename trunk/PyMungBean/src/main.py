@@ -11,12 +11,13 @@ from numpy.matlib import ones
 import matplotlib.pyplot as plt
 import PyML as ml
 from PyML import * #@UnusedWildImport
+from PyML.demo import demo2d
 #from mpl_toolkits.mplot3d.axes3d import Axes3D
 import classifier
 
 
 id = ''
-selected_file = 'selected%s.csv' % (id)
+selected_file = 'selected%s.data' % (id)
 test_file = 'test%s.data' % (id)
 svm_file = 'svm%s.data' % (id)
 
@@ -73,8 +74,8 @@ if __name__ == '__main__':
     y1 = ones((1, len(x1[0])))
     y2 = ones((1, len(x2[0]))) * 2
 
-    X = np.concatenate((x1, x2), axis = 1)
-    y = np.concatenate((y1, y2), axis = 1).A
+    X = np.concatenate((x1, x2), axis=1)
+    y = np.concatenate((y1, y2), axis=1).A
 
 # Plot mean and variance
     fea1.set_xlabel('Var')
@@ -116,7 +117,7 @@ if __name__ == '__main__':
     FDR = []
     for i in range(len(X)):
         FDR.append(feature.selection.FDR_comp(X, y, i))
-    fx.bar(range(len(X)), FDR, 0.05, color = 'r')
+    fx.bar(range(len(X)), FDR, 0.05, color='r')
     fx.set_ylabel('Ratio')
     fx.set_xlabel('Feature')
     fx.set_title('Fisher\'s Discriminate Ratio')
@@ -127,22 +128,27 @@ if __name__ == '__main__':
     ind , selected = feature.selection.choice_strongfeature(X, y, FDR, 50)
 
     with open(selected_file, "w") as fd:
-        write = csv.writer(fd, delimiter = ' ')
+        write = csv.writer(fd, delimiter=',')
 
         for c in range(len(y.T)):
             line = []
-            line.append('%s,%s' % (c, int(y.T[c][0])))
+            line.append('%s' % (int(y.T[c][0])))
+#            line.append('%s,%s' % (c, int(y.T[c][0])))
+            
             fea = selected.T[c]
             for i in range(len(ind)):
-                line.append("%s:%s" % (ind[i], fea[i]))
+                line.append("%s" % (fea[i]))
+#                line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
 #    FDR = None
 #===============================================================================
 # Machine Learning
 #===============================================================================
-    trainingset1 = ml.SparseDataSet(selected_file)
-    trainingset2 = ml.SparseDataSet(selected_file)
-
+#    trainingset1 = ml.SparseDataSet(selected_file)
+#    trainingset2 = ml.SparseDataSet(selected_file)
+    trainingset1 = ml.VectorDataSet(selected_file, labelsColumn=0)
+    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
+    
     k2 = ker.Polynomial(2) #ker.Gaussian(gamma = 0.5)
     k1 = ker.Linear()
     snl = ml.SVM(k2)
@@ -173,30 +179,40 @@ if __name__ == '__main__':
     g1 = ones((1, len(f1[0])))
     g2 = ones((1, len(f2[0]))) * 2
 
-    X = np.concatenate((f1, f2), axis = 1)
-    y = np.concatenate((g1, g2), axis = 1).A
+    X = np.concatenate((f1, f2), axis=1)
+    y = np.concatenate((g1, g2), axis=1).A
 
-    testdata = np.array(X).take(ind, axis = 0)
+    testdata = np.array(X).take(ind, axis=0)
     with open(test_file, "w") as fd:
-        write = csv.writer(fd, delimiter = ' ')
+        write = csv.writer(fd, delimiter=',')
 
         for c in range(len(y.T)):
             line = []
-            line.append('%s,%s' % (c, int(y.T[c][0])))
+            line.append('%s' % (int(y.T[c][0])))
+#            line.append('%s,%s' % (c, int(y.T[c][0])))
+            
             fea = testdata.T[c]
             for i in range(len(ind)):
-                line.append("%s:%s" % (ind[i], fea[i]))
+                line.append("%s" % (fea[i]))
+#                line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
 #    testdata = None
-    testset1 = ml.SparseDataSet(test_file)
-    testset2 = ml.SparseDataSet(test_file)
+#    testset1 = ml.SparseDataSet(test_file)
+#    testset2 = ml.SparseDataSet(test_file)
+    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
+    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    classifier.decisionSurface(sl, trainingset1, testset1)
 #===============================================================================
 # Linear Classifier
 #===============================================================================
-
+#    classifier.decisionSurface(sl, trainingset1, testset1)
+    
     sl.train(trainingset1)
-    result1 = sl.cv(testset1)
+#    sl.save("linear_svm")
+    result1 = sl.test(testset1, featureID=[0,1])
+    demo2d.setData(trainingset1)
+#    demo2d.getData()
+    demo2d.decisionSurface(sl)
     result1.plotROC('roc_linear%s.pdf' % (id))
     print result1
 
