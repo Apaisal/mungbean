@@ -8,25 +8,22 @@ import fnmatch
 import cv
 
 def GetDataSet(path):
-    sImgExt = '*.jpg'
-    listKinds = os.listdir(path)
 #===========================================================================
 # File Crawler
-#===========================================================================
+#===========================================================================   
+    sImgExt = '*.jpg'
+    listKinds = os.listdir(path)
     fileStruct = {}
     for kind in listKinds:
         if kind[0] != '.':
             fileStruct[kind] = []
             for file in os.listdir(os.path.join(path, kind)):
                 if fnmatch.fnmatch(file, sImgExt):
-                    fileStruct[kind].append(file)
-                    
-            fileStruct[kind].sort()
-            listfile = fileStruct[kind]
-            for file in listfile:
-                
-                img = cv.LoadImage(os.path.join(path, kind, file))
-                
+                    d = {}
+                    img = cv.LoadImage(os.path.join(path, kind, file))
+                    d[file]=img
+                    fileStruct[kind].append(d)        
+            fileStruct[kind].sort()                
     return fileStruct
 
 
