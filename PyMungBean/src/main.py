@@ -14,7 +14,10 @@ from PyML import * #@UnusedWildImport
 from PyML.demo import demo2d
 #from mpl_toolkits.mplot3d.axes3d import Axes3D
 import classifier
-
+import fnmatch
+import os
+import sys
+import re
 
 id = ''
 selected_file = 'selected%s.data' % (id)
@@ -47,8 +50,15 @@ def extraction(files):
     return features
 
 if __name__ == '__main__':
+        
     kfiles = glob.glob('../dataset/training_set%s/kamphangsean2/*.jpg' % (id))
-    cfiles = glob.glob('../dataset/training_set%s/chainat72/c*.jpg' % (id))
+    cfiles = glob.glob('../dataset/training_set%s/chainat72/*.jpg' % (id))
+    afiles = glob.glob('../dataset/training_set%s/authong1/*.jpg' % (id))
+    mfiles = glob.glob('../dataset/training_set%s/motoso1/*.jpg' % (id))
+
+#===========================================================================
+# Image preparation 
+#===========================================================================
 
 #===============================================================================
 # Feature Extraction class k
@@ -209,7 +219,7 @@ if __name__ == '__main__':
     
     sl.train(trainingset1)
 #    sl.save("linear_svm")
-    result1 = sl.test(testset1, featureID=[0,1])
+    result1 = sl.test(testset1, featureID=[0, 1])
     demo2d.setData(trainingset1)
 #    demo2d.getData()
     demo2d.decisionSurface(sl)
