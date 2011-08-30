@@ -10,7 +10,9 @@ import csv
 
 from PyML.containers import sequenceData, vectorDatasets
 from PyML.feature_selection import featsel
-from PyML.classifiers import svm
+from PyML.classifiers import svm, multi
+
+from PyML.classifiers.svm import loadSVM
 from PyML.demo import demo2d
 
 def GetDataSet(path):
@@ -57,42 +59,61 @@ def FeatureExtract(dataSet, type):
                     del dFile[filename]
                     write.writerow(list(hu) + [kindname])
 
-def FeatureSelection(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type)
+def TrainingFeature(dataSet, type):
+    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
+    s = multi.OneAgainstRest(svm.SVM())
+    s.train(data, saveSpace = False)
+    s.save("svm.data")
+
+def TestFeature(dataSet, type):
+    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
+    s = loadSVM("svm.data", data)
+    ret = s.test(data, saveSpace = False)
+    rec = s.cv(data)
     pass
 
 if __name__ == '__main__':
-
+    firstStep = False
+    secondStep = True
+    Train = False
+    Test = True
     #===========================================================================
     # Initialization 
     #===========================================================================
-
     rootTrainingSet = '../dataset/training_set'
     rootTestSet = '../dataset/test_set'
     dataSet = {}
-    print 'Loading Trianing set'
-    dataSet['training'] = GetDataSet(rootTrainingSet)
-    print 'Loading Test set'
-    dataSet['test'] = GetDataSet(rootTestSet)
 
-    #===========================================================================
-    # Image Preparation
-    #===========================================================================
-    print 'Prepare image of a Trianing set'
-    ImagePrepare(dataSet, 'training')
-    print 'Prepare image of a Test set'
-    ImagePrepare(dataSet, 'test')
+    if firstStep:
+        print 'Loading Trianing set'
+        dataSet['training'] = GetDataSet(rootTrainingSet)
+        print 'Loading Test set'
+        dataSet['test'] = GetDataSet(rootTestSet)
 
-    #===========================================================================
-    # Feature Extraction
-    #===========================================================================
-    print 'Extract feature in a image of a Trianing set'
-    FeatureExtract(dataSet, 'training')
-    print 'Extract feature in a image of a Test set'
-    FeatureExtract(dataSet, 'test')
+        #===========================================================================
+        # Image Preparation
+        #===========================================================================
+        print 'Prepare image of a Trianing set'
+        ImagePrepare(dataSet, 'training')
+        print 'Prepare image of a Test set'
+        ImagePrepare(dataSet, 'test')
+
+        #===========================================================================
+        # Feature Extraction
+        #===========================================================================
+        print 'Extract feature in a image of a Trianing set'
+        FeatureExtract(dataSet, 'training')
+        print 'Extract feature in a image of a Test set'
+        FeatureExtract(dataSet, 'test')
 
     #===========================================================================
     # Feature selection
     #===========================================================================
-    print 'Feature selection'
-    FeatureSelection(dataSet, 'training')
+    traindata = vectorDatasets.VectorDataSet('training', labelsColumn = -1)
+    rfe = featsel.RFE()
+
+    s = multi.OneAgainstRest(svm.SVM())
+    s.train(traindata, saveSpace = False)
+    testdata = vectorDatasets.VectorDataSet('test', labelsColumn = -1)
+    ret = s.cv(testdata)
+    print ret
