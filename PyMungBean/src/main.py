@@ -55,7 +55,11 @@ if __name__ == '__main__':
     cfiles = glob.glob('../dataset/training_set%s/chainat72/*.jpg' % (id))
     afiles = glob.glob('../dataset/training_set%s/authong1/*.jpg' % (id))
     mfiles = glob.glob('../dataset/training_set%s/motoso1/*.jpg' % (id))
-
+    
+    filesk = glob.glob('../dataset/test_set%s/kamphangsean2/*.jpg' % (id))
+    filesc = glob.glob('../dataset/test_set%s/chainat72/c*.jpg' % (id))
+    filesa = glob.glob('../dataset/test_set%s/authong1/*.jpg' % (id))
+    filesm = glob.glob('../dataset/test_set%s/motoso1/*.jpg' % (id))
 #===========================================================================
 # Image preparation 
 #===========================================================================
@@ -63,7 +67,7 @@ if __name__ == '__main__':
 #===============================================================================
 # Feature Extraction class k
 #===============================================================================
-    c1 = extraction(kfiles)
+    c1 = extraction(mfiles)
     c2 = extraction(cfiles)
 
     kfiles = None
@@ -138,26 +142,27 @@ if __name__ == '__main__':
     ind , selected = feature.selection.choice_strongfeature(X, y, FDR, 50)
 
     with open(selected_file, "w") as fd:
-        write = csv.writer(fd, delimiter=',')
+        write = csv.writer(fd, delimiter=' ')
+#        write = csv.writer(fd, delimiter=',')
 
         for c in range(len(y.T)):
             line = []
-            line.append('%s' % (int(y.T[c][0])))
-#            line.append('%s,%s' % (c, int(y.T[c][0])))
+#            line.append('%s' % (int(y.T[c][0])))
+            line.append('%s,%s' % (c, int(y.T[c][0])))
             
             fea = selected.T[c]
             for i in range(len(ind)):
-                line.append("%s" % (fea[i]))
-#                line.append("%s:%s" % (ind[i], fea[i]))
+#                line.append("%s" % (fea[i]))
+                line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
 #    FDR = None
 #===============================================================================
 # Machine Learning
 #===============================================================================
-#    trainingset1 = ml.SparseDataSet(selected_file)
-#    trainingset2 = ml.SparseDataSet(selected_file)
-    trainingset1 = ml.VectorDataSet(selected_file, labelsColumn=0)
-    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
+    trainingset1 = ml.SparseDataSet(selected_file)
+    trainingset2 = ml.SparseDataSet(selected_file)
+#    trainingset1 = ml.VectorDataSet(selected_file, labelsColumn=0)
+#    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
     
     k2 = ker.Polynomial(2) #ker.Gaussian(gamma = 0.5)
     k1 = ker.Linear()
@@ -169,10 +174,10 @@ if __name__ == '__main__':
 #===============================================================================
 # Classifies
 #===============================================================================
-    files1 = glob.glob('../dataset/test_set%s/kamphangsean2/k*.jpg' % (id))
-    files2 = glob.glob('../dataset/test_set%s/chainat72/c*.jpg' % (id))
-    c1 = extraction(files1)
-    c2 = extraction(files2)
+    
+    
+    c1 = extraction(filesm)
+    c2 = extraction(filesc)
 
     f1 = []
     f2 = []
@@ -194,23 +199,24 @@ if __name__ == '__main__':
 
     testdata = np.array(X).take(ind, axis=0)
     with open(test_file, "w") as fd:
-        write = csv.writer(fd, delimiter=',')
-
+        write = csv.writer(fd, delimiter=' ')
+#        write = csv.writer(fd, delimiter=',')
+        
         for c in range(len(y.T)):
             line = []
-            line.append('%s' % (int(y.T[c][0])))
-#            line.append('%s,%s' % (c, int(y.T[c][0])))
+#            line.append('%s' % (int(y.T[c][0])))
+            line.append('%s,%s' % (c, int(y.T[c][0])))
             
             fea = testdata.T[c]
             for i in range(len(ind)):
-                line.append("%s" % (fea[i]))
-#                line.append("%s:%s" % (ind[i], fea[i]))
+#                line.append("%s" % (fea[i]))
+                line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
 #    testdata = None
-#    testset1 = ml.SparseDataSet(test_file)
-#    testset2 = ml.SparseDataSet(test_file)
-    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
-    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
+    testset1 = ml.SparseDataSet(test_file)
+    testset2 = ml.SparseDataSet(test_file)
+#    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
+#    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    classifier.decisionSurface(sl, trainingset1, testset1)
 #===============================================================================
 # Linear Classifier
@@ -219,10 +225,10 @@ if __name__ == '__main__':
     
     sl.train(trainingset1)
 #    sl.save("linear_svm")
-    result1 = sl.test(testset1, featureID=[0, 1])
-    demo2d.setData(trainingset1)
+    result1 = sl.cv(testset1)
+#    demo2d.setData(trainingset1)
 #    demo2d.getData()
-    demo2d.decisionSurface(sl)
+#    demo2d.decisionSurface(sl)
     result1.plotROC('roc_linear%s.pdf' % (id))
     print result1
 
