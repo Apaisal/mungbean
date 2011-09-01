@@ -7,15 +7,14 @@ import os
 import fnmatch
 import cv
 import csv
-
-from PyML.containers import vectorDatasets
+from PyML import ker
+from PyML.containers import sequenceData, vectorDatasets
 from PyML.feature_selection import featsel
 from PyML.classifiers import svm, multi
 
-from PyML.classifiers.svm import loadSVM, SVM
+from PyML.classifiers.svm import loadSVM
 from PyML.demo import demo2d
-from PyML.feature_selection.featsel import OneAgainstRestSelect, FeatureSelector
-from PyML.utils import misc
+
 
 def GetDataSet(path):
     sImgExt = '*.jpg'
@@ -48,7 +47,7 @@ def ImagePrepare(dataSet, type):
 
 def FeatureExtract(dataSet, type):
     with open(type, "w") as fd:
-        write = csv.writer(fd, delimiter=',')
+        write = csv.writer(fd, delimiter = ',')
         for kindname, files  in dataSet[type].items():
             print kindname
             for dFile in files:
@@ -61,26 +60,21 @@ def FeatureExtract(dataSet, type):
                     del dFile[filename]
                     write.writerow(list(hu) + [kindname])
 
-def Selection(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type, labelsColumn= -1)
-    print featsel.featureCount(data)
-    pass
-
 def TrainingFeature(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type, labelsColumn= -1)
+    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
     s = multi.OneAgainstRest(svm.SVM())
-    s.train(data, saveSpace=False)
+    s.train(data, saveSpace = False)
     s.save("svm.data")
 
 def TestFeature(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type, labelsColumn= -1)
+    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
     s = loadSVM("svm.data", data)
-    ret = s.test(data, saveSpace=False)
+    ret = s.test(data, saveSpace = False)
     rec = s.cv(data)
     pass
 
 if __name__ == '__main__':
-    firstStep = True
+    firstStep = False
     secondStep = True
     Train = False
     Test = True
@@ -116,13 +110,16 @@ if __name__ == '__main__':
     #===========================================================================
     # Feature selection
     #===========================================================================
-    traindata = vectorDatasets.VectorDataSet('training', labelsColumn= -1)
-#    numFeatures = len(featsel.featureCount(traindata))
-    mc = multi.OneAgainstRest(SVM(c=1000)) 
-    ret = mc.cv(traindata)
-    print "Time of Training : %f s" % (mc.getTrainingTime())
-    
-    testdata = vectorDatasets.VectorDataSet('test', labelsColumn= -1)
-    ret = mc.test(testdata)
+    traindata = vectorDatasets.VectorDataSet('training', labelsColumn = -1)
+    traindata.normalize()
+    rfe = featsel.RFE()
+
+    s = multi.OneAgainstRest(svm.SVM(\
+                                      ker.Gaussian(gamma = 0.1) , \
+                                      c = 100, \
+                                      optimizer = 'mysmo'))
+    s.train(traindata, saveSpace = False)
+    testdata = vectorDatasets.VectorDataSet('test', labelsColumn = -1)
+    testdata.normalize()
+    ret = s.cv(testdata)
     print ret
-    pass
