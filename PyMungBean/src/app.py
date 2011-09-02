@@ -47,7 +47,7 @@ def ImagePrepare(dataSet, type):
 
 def FeatureExtract(dataSet, type):
     with open(type, "w") as fd:
-        write = csv.writer(fd, delimiter = ',')
+        write = csv.writer(fd, delimiter=',')
         for kindname, files  in dataSet[type].items():
             print kindname
             for dFile in files:
@@ -58,25 +58,26 @@ def FeatureExtract(dataSet, type):
                     dFile['filename'] = filename
                     dFile['feature'] = {'hu':hu}
                     del dFile[filename]
+#                    write.writerow(list(hu) + [kindname])
                     write.writerow(list(hu) + [kindname])
 
 def TrainingFeature(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
+    data = vectorDatasets.VectorDataSet(type, labelsColumn= -1)
     s = multi.OneAgainstRest(svm.SVM())
-    s.train(data, saveSpace = False)
+    s.train(data, saveSpace=False)
     s.save("svm.data")
 
 def TestFeature(dataSet, type):
-    data = vectorDatasets.VectorDataSet(type, labelsColumn = -1)
+    data = vectorDatasets.VectorDataSet(type, labelsColumn= -1)
     s = loadSVM("svm.data", data)
-    ret = s.test(data, saveSpace = False)
+    ret = s.test(data, saveSpace=False)
     rec = s.cv(data)
     pass
 
 if __name__ == '__main__':
-    firstStep = False
+    firstStep = True
     secondStep = True
-    Train = False
+    Train = True
     Test = True
     #===========================================================================
     # Initialization 
@@ -110,16 +111,47 @@ if __name__ == '__main__':
     #===========================================================================
     # Feature selection
     #===========================================================================
-    traindata = vectorDatasets.VectorDataSet('training', labelsColumn = -1)
-    traindata.normalize()
+    traindata = vectorDatasets.VectorDataSet('training', labelsColumn= -1)
+    #traindata.normalize()
+    traindata.scale(1.0)
+    
+    testdata = vectorDatasets.VectorDataSet('test', labelsColumn= -1)
+    #testdata.normalize()
+    testdata.scale(1.0)
     rfe = featsel.RFE()
-
-    s = multi.OneAgainstRest(svm.SVM(\
-                                      ker.Gaussian(gamma = 0.1) , \
-                                      c = 100, \
-                                      optimizer = 'mysmo'))
-    s.train(traindata, saveSpace = False)
-    testdata = vectorDatasets.VectorDataSet('test', labelsColumn = -1)
-    testdata.normalize()
-    ret = s.cv(testdata)
-    print ret
+    
+    #===========================================================================
+    # Machine Learning & Classification
+    #===========================================================================
+    s = None
+    if traindata.labels.numClasses > 2:
+        print "MultiClass Classifier"
+        s = multi.OneAgainstRest(svm.SVM(\
+                                      ker.Gaussian(gamma=0.1) , \
+                                      c=100, \
+                                      optimizer='mysmo' \
+                                      ))
+    else:
+        print "Two Class Classifier"
+        s = svm.SVM(\
+                                      #ker.Gaussian(gamma=0.1) , \
+                                      #ker.Polynomial(2),
+                                      c=100, \
+                                      optimizer='mysmo' \
+                                      )
+    print "==========================================================================="
+    print "\nCross validation Training set"
+    print s.cv(traindata)
+    print "==========================================================================="
+    print "\nCross validation Test set"    
+    print s.cv(testdata)
+    
+    print "==========================================================================="
+    print "\nTraining DataSet"
+    s.train(traindata, saveSpace=False)
+    
+    print "==========================================================================="
+    print "\nTesting DataSet"
+    print s.test(testdata)
+    print "==========================================================================="
+    
