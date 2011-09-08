@@ -67,7 +67,7 @@ if __name__ == '__main__':
 #===============================================================================
 # Feature Extraction class k
 #===============================================================================
-    c1 = extraction(mfiles)
+    c1 = extraction(kfiles)
     c2 = extraction(cfiles)
 
     kfiles = None
@@ -225,7 +225,7 @@ if __name__ == '__main__':
     
     sl.train(trainingset1)
 #    sl.save("linear_svm")
-    result1 = sl.cv(testset1)
+    result1 = sl.test(testset1)
 #    demo2d.setData(trainingset1)
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
@@ -237,7 +237,7 @@ if __name__ == '__main__':
 #===============================================================================
 
     snl.train(trainingset2)
-    result2 = snl.cv(testset2)
+    result2 = snl.test(testset2)
     result2.plotROC('roc_nonlinear%s.pdf' % (id))
     print result2
 

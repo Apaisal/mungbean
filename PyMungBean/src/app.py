@@ -112,6 +112,7 @@ def NormalizeByMaxMin(dataSet, type, maximum=None, minimum=None, show=False):
                 minimum.append(h5.min())
                 minimum.append(h6.min())
                 minimum.append(h7.min())    
+           
             h1 = (((h1 - minimum[0]) / (maximum[0] - minimum[0])) * 2.0) - 1
             h2 = (((h2 - minimum[1]) / (maximum[1] - minimum[1])) * 2.0) - 1
             h3 = (((h3 - minimum[2]) / (maximum[2] - minimum[2])) * 2.0) - 1
@@ -119,6 +120,20 @@ def NormalizeByMaxMin(dataSet, type, maximum=None, minimum=None, show=False):
             h5 = (((h5 - minimum[4]) / (maximum[4] - minimum[4])) * 2.0) - 1
             h6 = (((h6 - minimum[5]) / (maximum[5] - minimum[5])) * 2.0) - 1
             h7 = (((h7 - minimum[6]) / (maximum[6] - minimum[6])) * 2.0) - 1
+#            h1 = (h1 - h1.mean()) / h1.std()
+#            h2 = (h2 - h2.mean()) / h2.std()
+#            h3 = (h3 - h3.mean()) / h3.std()
+#            h4 = (h4 - h4.mean()) / h4.std()
+#            h5 = (h5 - h5.mean()) / h5.std()
+#            h6 = (h6 - h6.mean()) / h6.std()
+#            h7 = (h7 - h7.mean()) / h7.std()
+#            h1 /= h1.std()
+#            h2 /= h2.std()
+#            h3 /= h3.std()
+#            h4 /= h4.std()
+#            h5 /= h5.std()
+#            h6 /= h6.std()
+#            h7 /= h7.std()
             hu[key] = [h1, h2, h3, h4, h5, h6, h7]
 
             for element in range(len(value)):
@@ -143,7 +158,7 @@ def TestFeature(dataSet, type):
     pass
 
 if __name__ == '__main__':
-    firstStep = True
+    firstStep = False
     secondStep = True
     Train = True
     Test = True
@@ -179,9 +194,10 @@ if __name__ == '__main__':
     #===========================================================================
     # Normalization 
     #===========================================================================
-        print 'Normalization data set'
-        max, min = NormalizeByMaxMin(dataSet, 'training', show=True)
-        NormalizeByMaxMin(dataSet, 'test', show=True)
+        print 'Normalization training set'
+        max, min = NormalizeByMaxMin(dataSet, 'training', show=False)
+        print 'Normalization test set'
+        NormalizeByMaxMin(dataSet, 'test',maximum=max, minimum=min, show=False)
 
     #===========================================================================
     # Feature selection
@@ -223,8 +239,8 @@ if __name__ == '__main__':
     k = svm.SVM(\
 #                                      ker.Gaussian(gamma=0.1) , \
 #                                      ker.Polynomial(2), \
-                                      c=100, \
-                                      optimizer='mysmo' \
+                                      c=10, \
+#                                      optimizer='mysmo' \
                                       )
     if trainclasspair.labels.numClasses > 2:
         print "MultiClass Classifier"
@@ -235,10 +251,10 @@ if __name__ == '__main__':
         
     print "==========================================================================="
     print "\nCross validation Training set"
-    print s.stratifiedCV(trainclasspair)
+    print s.cv(trainclasspair)
     print "==========================================================================="
     print "\nCross validation Test set"
-    print s.stratifiedCV(testclasspair)
+    print s.cv(testclasspair)
 
     print "==========================================================================="
     print "\nTraining DataSet"
