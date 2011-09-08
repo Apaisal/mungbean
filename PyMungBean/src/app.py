@@ -11,12 +11,12 @@ import numpy as np
 from plot import plot3d
 
 from PyML import ker
-from PyML.containers import sequenceData, vectorDatasets
+from PyML.containers import vectorDatasets
 from PyML.feature_selection import featsel
-from PyML.classifiers import svm, multi
+from PyML.classifiers import svm, multi, ridgeRegression, knn
 
 from PyML.classifiers.svm import loadSVM
-from PyML.demo import demo2d
+#from PyML.demo import demo2d
 
 
 def GetDataSet(path):
@@ -50,7 +50,7 @@ def ImagePrepare(dataSet, type):
 
 def FeatureExtract(dataSet, type):
     with open(type, "w") as fd:
-        write = csv.writer(fd, delimiter=',')
+        write = csv.writer(fd, delimiter=',', lineterminator='\n')
         for kindname, files  in dataSet[type].items():
             print kindname
             for dFile in files:
@@ -64,11 +64,11 @@ def FeatureExtract(dataSet, type):
                     del dFile[filename]
 #                    write.writerow(list(hu) + [kindname])
                     write.writerow(list(hu) + [kindname])
-def NormalizeByMaxMin(dataSet, type, maximum = None, minimum = None, show = False):
+def NormalizeByMaxMin(dataSet, type, maximum=None, minimum=None, show=False):
     hu = {}
     a = plot3d
     with open(type, "w") as fd:
-        write = csv.writer(fd, delimiter = ',')
+        write = csv.writer(fd, delimiter=',', lineterminator='\n')
         for key, value in dataSet[type].items():
             
             h1 = []
@@ -180,53 +180,72 @@ if __name__ == '__main__':
     # Normalization 
     #===========================================================================
         print 'Normalization data set'
-        max, min = NormalizeByMaxMin(dataSet, 'training')
-        NormalizeByMaxMin(dataSet, 'test', max, min, True)
+        max, min = NormalizeByMaxMin(dataSet, 'training', show=True)
+        NormalizeByMaxMin(dataSet, 'test', show=True)
 
     #===========================================================================
     # Feature selection
     #===========================================================================
+    
     traindata = vectorDatasets.VectorDataSet('training', labelsColumn= -1)
-    #traindata.normalize()
-    traindata.scale(1.0)
-
     testdata = vectorDatasets.VectorDataSet('test', labelsColumn= -1)
+    
+#    chooseclass = ['authong1', 'chainat72']
+#    chooseclass = ['authong1','kamphangsean2']
+#    chooseclass = ['authong1','motoso1']
+#    chooseclass = ['chainat72','kamphangsean2']
+#    chooseclass = ['chainat72','motoso1']
+#    chooseclass = ['kamphangsean2','motoso1']
+    chooseclass = [ \
+#                   'authong1', \
+                   'chainat72', \
+                   'kamphangsean2', \
+#                   'motoso1'
+                   ]
+    
+    trainclasspair = traindata.__class__(traindata, classes=chooseclass)
+    #traindata.normalize()
+#    traindata.scale(1.0)
+
+    
+    testclasspair = traindata.__class__(testdata, classes=chooseclass)
     #testdata.normalize()
-    testdata.scale(1.0)
-    rfe = featsel.RFE()
+#    testdata.scale(1.0)
+#    rfe = featsel.RFE()
 
     #===========================================================================
     # Machine Learning & Classification
     #===========================================================================
     s = None
-    if traindata.labels.numClasses > 2:
-        print "MultiClass Classifier"
-        s = multi.OneAgainstRest(svm.SVM(\
-                                      ker.Gaussian(gamma=0.1) , \
-                                      c=10, \
-                                      optimizer='mysmo' \
-                                      ))
-    else:
-        print "Two Class Classifier"
-        s = svm.SVM(\
-                                      #ker.Gaussian(gamma=0.1) , \
-                                      #ker.Polynomial(2),
+    #        k= knn.KNN(1)
+#        k = ridgeRegression.RidgeRegression(1)
+#        k = svm.SVR()
+    k = svm.SVM(\
+#                                      ker.Gaussian(gamma=0.1) , \
+#                                      ker.Polynomial(2), \
                                       c=100, \
                                       optimizer='mysmo' \
                                       )
+    if trainclasspair.labels.numClasses > 2:
+        print "MultiClass Classifier"
+        s = multi.OneAgainstRest(k)
+    else:
+        print "Two Class Classifier"
+        s = k
+        
     print "==========================================================================="
     print "\nCross validation Training set"
-    print s.cv(traindata)
+    print s.stratifiedCV(trainclasspair)
     print "==========================================================================="
     print "\nCross validation Test set"
-    print s.cv(testdata)
+    print s.stratifiedCV(testclasspair)
 
     print "==========================================================================="
     print "\nTraining DataSet"
-    s.train(traindata)
+    s.train(trainclasspair)
 #    s.train(testdata)
 
     print "==========================================================================="
     print "\nTesting DataSet"
-    print s.test(testdata)
+    print s.test(testclasspair)
     print "==========================================================================="
