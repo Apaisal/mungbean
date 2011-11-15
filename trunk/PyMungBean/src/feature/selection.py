@@ -21,8 +21,9 @@ def FDR_comp(X, y, ind):
         m.append(matlib.mean(X_temp))
         vari.append(matlib.var(X_temp))
 
-    a = stats.binom_test(range(c), 2)
-    q = ((m[0] - m[1]) ** 2) / (vari[0] ** 2 + vari[1] ** 2)
+#    a = stats.binom_test(range(c), c)
+#    q = ((m[0] - m[1]) ** 2) / (vari[0] ** 2 + vari[1] ** 2)
+    q = pow(np.sum(m), 2) / (pow(vari[0], 2) + pow(vari[1], 2) + pow(vari[2], 2) + pow(vari[3], 2))
     return np.sum(q);
 
 
