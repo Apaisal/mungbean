@@ -23,7 +23,9 @@ def FDR_comp(X, y, ind):
 
 #    a = stats.binom_test(range(c), c)
 #    q = ((m[0] - m[1]) ** 2) / (vari[0] ** 2 + vari[1] ** 2)
-    q = pow(np.sum(m), 2) / (pow(vari[0], 2) + pow(vari[1], 2) + pow(vari[2], 2) + pow(vari[3], 2))
+    var = 0
+    for i in vari: var += pow(i, 2)
+    q = pow(np.sum(m), 2) / var
     return np.sum(q);
 
 

@@ -10,15 +10,18 @@ import numpy as np
 from numpy.matlib import ones
 import matplotlib.pyplot as plt
 import PyML as ml
-from PyML import * #@UnusedWildImport
+#from PyML import * #@UnusedWildImport
 from PyML.demo import demo2d
 from PyML.classifiers import svm, multi
-#from mpl_toolkits.mplot3d.axes3d import Axes3D
-import classifier
-import fnmatch
-import os
-import sys
-import re
+
+from matplotlib.collections import PolyCollection
+from matplotlib.colors import colorConverter
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+#import classifier
+#import fnmatch
+#import os
+#import sys
+#import re
 
 id = ''
 selected_file = 'selected%s.data' % (id)
@@ -28,16 +31,27 @@ svm_file = 'svm%s.data' % (id)
 ext_fig1 = plt.figure(1)
 ext_fig2 = plt.figure(2)
 ext_fig3 = plt.figure(3)
-sel_fig = plt.figure(4)
-seled_fig = plt.figure(5)
+ext_fig4 = plt.figure(4)
+ext_fig5 = plt.figure(5)
+ext_fig6 = plt.figure(6)
+sel_fig = plt.figure(7)
+seled_fig = plt.figure(8)
 #final_fig = plt.figure(6)
 
 fea1 = ext_fig1.add_subplot(111)
 fea1.grid()
 fea2 = ext_fig2.add_subplot(111)
 fea2.grid()
-fea3 = ext_fig3.add_subplot(111)
-fea3.grid()
+
+fea3 = Axes3D(ext_fig3)
+#fea3.grid()
+fea4 = Axes3D(ext_fig4)
+#fea4.grid()
+fea5 = Axes3D(ext_fig5)
+#fea5.grid()
+fea6 = Axes3D(ext_fig6)
+#fea6.grid()
+
 fx = sel_fig.add_subplot(111)
 fx.grid()
 sx = seled_fig.add_subplot(111)
@@ -52,6 +66,9 @@ def extraction(files):
 
 if __name__ == '__main__':
 
+#===========================================================================
+# Image preparation 
+#===========================================================================
     kfiles = glob.glob('../dataset/training_set%s/kamphangsean2/*.jpg' % (id))
     cfiles = glob.glob('../dataset/training_set%s/chainat72/*.jpg' % (id))
     afiles = glob.glob('../dataset/training_set%s/authong1/*.jpg' % (id))
@@ -61,9 +78,6 @@ if __name__ == '__main__':
     filesc = glob.glob('../dataset/test_set%s/chainat72/c*.jpg' % (id))
     filesa = glob.glob('../dataset/test_set%s/authong1/*.jpg' % (id))
     filesm = glob.glob('../dataset/test_set%s/motoso1/*.jpg' % (id))
-#===========================================================================
-# Image preparation 
-#===========================================================================
 
 #===============================================================================
 # Feature Extraction class k
@@ -112,53 +126,129 @@ if __name__ == '__main__':
     fea1.plot(x2[0], x2[1], 'bo')
     fea1.plot(x3[0], x3[1], 'g^')
     fea1.plot(x4[0], x4[1], 'y.')
-    fea1.legend(('CN72', 'KPS2', 'aut1', 'mts1'))
+    fea1.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
 # Plot Area
     fea2.set_title('Size')
     fea2.plot(x1[8], 'rx')
     fea2.plot(x2[8], 'bo')
     fea2.plot(x3[8], 'g^')
     fea2.plot(x4[8], 'y.')
-    fea2.legend(('CN72', 'KPS2', 'aut1', 'mts1'))
+    fea2.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
 
 # Plot Hu
-    fea3.set_title('Absolute Orthogonal Moment Invariants')
-    fea3.plot(x1[2], 'b-')
-    fea3.plot(x1[3], 'r-')
-    fea3.plot(x1[4], 'g-')
-    fea3.plot(x1[5], 'y-')
-    fea3.plot(x1[6], 'c-')
-    fea3.plot(x1[7], 'm-')
-    fea3.plot(x1[9], 'k-')
+    xs = np.arange(1, 51)
+    zs = np.arange(1, 8)
+    verts1 = []
+    verts2 = []
+    verts3 = []
+    verts4 = []
 
-    fea3.plot(x2[2], 'b--')
-    fea3.plot(x2[3], 'r--')
-    fea3.plot(x2[4], 'g--')
-    fea3.plot(x2[5], 'y--')
-    fea3.plot(x2[6], 'c--')
-    fea3.plot(x2[7], 'm--')
-    fea3.plot(x2[9], 'k--')
+    cc = lambda arg: colorConverter.to_rgba(arg, alpha = 0.6)
 
-    fea3.plot(x3[2], 'b.')
-    fea3.plot(x3[3], 'r.')
-    fea3.plot(x3[4], 'g.')
-    fea3.plot(x3[5], 'y.')
-    fea3.plot(x3[6], 'c.')
-    fea3.plot(x3[7], 'm.')
-    fea3.plot(x3[9], 'k.')
+    fea3.set_title('Absolute Orthogonal Moment Invariants of CN72')
+    verts1.append(zip(xs, x1[6]))
+    verts1.append(zip(xs, x1[7]))
+    verts1.append(zip(xs, x1[9]))
+    verts1.append(zip(xs, x1[2]))
+    verts1.append(zip(xs, x1[3]))
+    verts1.append(zip(xs, x1[4]))
+    verts1.append(zip(xs, x1[5]))
+#    fea3.plot(x1[2], 'b-')
+#    fea3.plot(x1[3], 'r-')
+#    fea3.plot(x1[4], 'g-')
+#    fea3.plot(x1[5], 'y-')
+#    fea3.plot(x1[6], 'c-')
+#    fea3.plot(x1[7], 'm-')
+#    fea3.plot(x1[9], 'k-')
+    poly1 = PolyCollection(verts1, facecolors = [cc('r'), cc('g'), cc('b'), \
+                                        cc('y'), cc('c'), cc('m'), cc('k') ])
+    fea3.add_collection3d(poly1, zs = zs, zdir = 'y')
+    fea3.set_xlabel('Seed Number')
+    fea3.set_xlim3d(-10, 60)
+    fea3.set_ylabel('Order')
+    fea3.set_ylim3d(0, 8)
+    fea3.set_zlabel('Coefficient')
+    fea3.set_zlim3d(-1, 1)
 
-    fea3.plot(x4[2], 'b^')
-    fea3.plot(x4[3], 'r^')
-    fea3.plot(x4[4], 'g^')
-    fea3.plot(x4[5], 'y^')
-    fea3.plot(x4[6], 'c^')
-    fea3.plot(x4[7], 'm^')
-    fea3.plot(x4[9], 'k^')
+    fea4.set_title('Absolute Orthogonal Moment Invariants of KPS2')
+    verts2.append(zip(xs, x2[6]))
+    verts2.append(zip(xs, x2[7]))
+    verts2.append(zip(xs, x2[9]))
+    verts2.append(zip(xs, x2[2]))
+    verts2.append(zip(xs, x2[3]))
+    verts2.append(zip(xs, x2[4]))
+    verts2.append(zip(xs, x2[5]))
+#    fea4.plot(x2[2], 'b--')
+#    fea4.plot(x2[3], 'r--')
+#    fea4.plot(x2[4], 'g--')
+#    fea4.plot(x2[5], 'y--')
+#    fea4.plot(x2[6], 'c--')
+#    fea4.plot(x2[7], 'm--')
+#    fea4.plot(x2[9], 'k--')
+    poly2 = PolyCollection(verts2, facecolors = [cc('r'), cc('g'), cc('b'), \
+                                        cc('y'), cc('c'), cc('m'), cc('k') ])
+    fea4.add_collection3d(poly2, zs = zs, zdir = 'y')
+    fea4.set_xlabel('Seed Number')
+    fea4.set_xlim3d(-10, 60)
+    fea4.set_ylabel('Order')
+    fea4.set_ylim3d(0, 8)
+    fea4.set_zlabel('Coefficient')
+    fea4.set_zlim3d(-1, 1)
 
-    fea3.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3', \
-                  'I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3',
-                  'I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3',
-                  'I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+    fea5.set_title('Absolute Orthogonal Moment Invariants of AUT1')
+    verts3.append(zip(xs, x3[6]))
+    verts3.append(zip(xs, x3[7]))
+    verts3.append(zip(xs, x3[9]))
+    verts3.append(zip(xs, x3[2]))
+    verts3.append(zip(xs, x3[3]))
+    verts3.append(zip(xs, x3[4]))
+    verts3.append(zip(xs, x3[5]))
+#    fea5.plot(x3[2], 'b.')
+#    fea5.plot(x3[3], 'r.')
+#    fea5.plot(x3[4], 'g.')
+#    fea5.plot(x3[5], 'y.')
+#    fea5.plot(x3[6], 'c.')
+#    fea5.plot(x3[7], 'm.')
+#    fea5.plot(x3[9], 'k.')
+    poly3 = PolyCollection(verts3, facecolors = [cc('r'), cc('g'), cc('b'), \
+                                        cc('y'), cc('c'), cc('m'), cc('k') ])
+    fea5.add_collection3d(poly3, zs = zs, zdir = 'y')
+    fea5.set_xlabel('Seed Number')
+    fea5.set_xlim3d(-10, 60)
+    fea5.set_ylabel('Order')
+    fea5.set_ylim3d(0, 8)
+    fea5.set_zlabel('Coefficient')
+    fea5.set_zlim3d(-1, 1)
+
+    fea6.set_title('Absolute Orthogonal Moment Invariants of MST1')
+    verts4.append(zip(xs, x4[6]))
+    verts4.append(zip(xs, x4[7]))
+    verts4.append(zip(xs, x4[9]))
+    verts4.append(zip(xs, x4[2]))
+    verts4.append(zip(xs, x4[3]))
+    verts4.append(zip(xs, x4[4]))
+    verts4.append(zip(xs, x4[5]))
+#    fea6.plot(x4[2], 'b^')
+#    fea6.plot(x4[3], 'r^')
+#    fea6.plot(x4[4], 'g^')
+#    fea6.plot(x4[5], 'y^')
+#    fea6.plot(x4[6], 'c^')
+#    fea6.plot(x4[7], 'm^')
+#    fea6.plot(x4[9], 'k^')
+    poly4 = PolyCollection(verts4, facecolors = [cc('r'), cc('g'), cc('b'), \
+                                        cc('y'), cc('c'), cc('m'), cc('k') ])
+    fea6.add_collection3d(poly4, zs = zs, zdir = 'y')
+    fea6.set_xlabel('Seed Number')
+    fea6.set_xlim3d(-10, 60)
+    fea6.set_ylabel('Order')
+    fea6.set_ylim3d(0, 8)
+    fea6.set_zlabel('Coefficient')
+    fea6.set_zlim3d(-1, 1)
+#    fea3.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+#    fea4.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+#    fea5.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+#    fea6.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+#    plt.show()
 #===============================================================================
 # Feature Selection
 #===============================================================================
@@ -173,7 +263,7 @@ if __name__ == '__main__':
     fx.set_xticklabels((xlabel))
 #    plt.draw()
     # Choice ratio more than 50
-    ind , selected = feature.selection.choice_strongfeature(X, y, FDR, 50)
+    ind , selected = feature.selection.choice_strongfeature(X, y, FDR, 10)
 
     with open(selected_file, "w") as fd:
         write = csv.writer(fd, delimiter = ' ')
@@ -235,7 +325,7 @@ if __name__ == '__main__':
     y = np.concatenate((g1, g2, g3, g4), axis = 1).A
 
     testdata = np.array(X).take(ind, axis = 0)
-    with open(selected_file, "w+") as fd:
+    with open(test_file, "w") as fd:
         write = csv.writer(fd, delimiter = ' ')
 #        write = csv.writer(fd, delimiter=',')
 
@@ -250,16 +340,16 @@ if __name__ == '__main__':
                 line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
 #    testdata = None
-    testset1 = ml.SparseDataSet(selected_file)
-    testset2 = ml.SparseDataSet(selected_file)
+    testset1 = ml.SparseDataSet(test_file)
+    testset2 = ml.SparseDataSet(test_file)
 #    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    classifier.decisionSurface(sl, trainingset1, testset1)
 
-    k2 = ker.Polynomial(4)
+    k2 = ml.ker.Polynomial(3)
 #    k2 = ker.Gaussian(gamma = 0.5)
-    k1 = ker.Polynomial(5)
-#    k1 = ker.Linear()
+#    k1 = ml.ker.Polynomial(5)
+    k1 = ml.ker.Linear()
     snl = multi.OneAgainstRest(svm.SVM(\
                                       k2 , \
                                       c = 10, \
@@ -294,11 +384,11 @@ if __name__ == '__main__':
 
     snl.train(trainingset2)
     result2 = snl.cv(testset2)
-#    result2.plotROC('roc_nonlinear%s.pdf' % (id))
+    result2.plotROC('roc_nonlinear%s.pdf' % (id))
     print result2
 
 #    classifier.scatter(trainingset1)
-#    plt.show()
+    plt.show()
 
     sl = None
     snl = None
