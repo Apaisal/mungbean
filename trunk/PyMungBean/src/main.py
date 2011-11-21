@@ -11,10 +11,10 @@ from numpy.matlib import ones
 import matplotlib.pyplot as plt
 import PyML as ml
 #from PyML import * #@UnusedWildImport
-from PyML.demo import demo2d
+#from PyML.demo import demo, demo2d
 from PyML.classifiers import svm, multi
 
-from matplotlib.collections import PolyCollection
+from matplotlib.collections import PolyCollection, LineCollection
 from matplotlib.colors import colorConverter
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 #import classifier
@@ -44,13 +44,13 @@ fea2 = ext_fig2.add_subplot(111)
 fea2.grid()
 
 fea3 = Axes3D(ext_fig3)
-#fea3.grid()
+fea3.grid()
 fea4 = Axes3D(ext_fig4)
-#fea4.grid()
+fea4.grid()
 fea5 = Axes3D(ext_fig5)
-#fea5.grid()
+fea5.grid()
 fea6 = Axes3D(ext_fig6)
-#fea6.grid()
+fea6.grid()
 
 fx = sel_fig.add_subplot(111)
 fx.grid()
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     verts3 = []
     verts4 = []
 
-    cc = lambda arg: colorConverter.to_rgba(arg, alpha = 0.6)
+    cc = lambda arg: colorConverter.to_rgba(arg, alpha = 0.2)
 
     fea3.set_title('Absolute Orthogonal Moment Invariants of CN72')
     verts1.append(zip(xs, x1[6]))
@@ -153,16 +153,12 @@ if __name__ == '__main__':
     verts1.append(zip(xs, x1[3]))
     verts1.append(zip(xs, x1[4]))
     verts1.append(zip(xs, x1[5]))
-#    fea3.plot(x1[2], 'b-')
-#    fea3.plot(x1[3], 'r-')
-#    fea3.plot(x1[4], 'g-')
-#    fea3.plot(x1[5], 'y-')
-#    fea3.plot(x1[6], 'c-')
-#    fea3.plot(x1[7], 'm-')
-#    fea3.plot(x1[9], 'k-')
+
     poly1 = PolyCollection(verts1, facecolors = [cc('r'), cc('g'), cc('b'), \
                                         cc('y'), cc('c'), cc('m'), cc('k') ])
+    poly1.set_alpha(0.5)
     fea3.add_collection3d(poly1, zs = zs, zdir = 'y')
+    fea3.autoscale_view(True, True, True)
     fea3.set_xlabel('Seed Number')
     fea3.set_xlim3d(-10, 60)
     fea3.set_ylabel('Order')
@@ -178,16 +174,11 @@ if __name__ == '__main__':
     verts2.append(zip(xs, x2[3]))
     verts2.append(zip(xs, x2[4]))
     verts2.append(zip(xs, x2[5]))
-#    fea4.plot(x2[2], 'b--')
-#    fea4.plot(x2[3], 'r--')
-#    fea4.plot(x2[4], 'g--')
-#    fea4.plot(x2[5], 'y--')
-#    fea4.plot(x2[6], 'c--')
-#    fea4.plot(x2[7], 'm--')
-#    fea4.plot(x2[9], 'k--')
     poly2 = PolyCollection(verts2, facecolors = [cc('r'), cc('g'), cc('b'), \
                                         cc('y'), cc('c'), cc('m'), cc('k') ])
+    poly2.set_alpha(0.5)
     fea4.add_collection3d(poly2, zs = zs, zdir = 'y')
+    fea4.autoscale_view(True, True, True)
     fea4.set_xlabel('Seed Number')
     fea4.set_xlim3d(-10, 60)
     fea4.set_ylabel('Order')
@@ -203,16 +194,11 @@ if __name__ == '__main__':
     verts3.append(zip(xs, x3[3]))
     verts3.append(zip(xs, x3[4]))
     verts3.append(zip(xs, x3[5]))
-#    fea5.plot(x3[2], 'b.')
-#    fea5.plot(x3[3], 'r.')
-#    fea5.plot(x3[4], 'g.')
-#    fea5.plot(x3[5], 'y.')
-#    fea5.plot(x3[6], 'c.')
-#    fea5.plot(x3[7], 'm.')
-#    fea5.plot(x3[9], 'k.')
     poly3 = PolyCollection(verts3, facecolors = [cc('r'), cc('g'), cc('b'), \
                                         cc('y'), cc('c'), cc('m'), cc('k') ])
+    poly3.set_alpha(0.5)
     fea5.add_collection3d(poly3, zs = zs, zdir = 'y')
+    fea5.autoscale_view(True, True, True)
     fea5.set_xlabel('Seed Number')
     fea5.set_xlim3d(-10, 60)
     fea5.set_ylabel('Order')
@@ -228,27 +214,20 @@ if __name__ == '__main__':
     verts4.append(zip(xs, x4[3]))
     verts4.append(zip(xs, x4[4]))
     verts4.append(zip(xs, x4[5]))
-#    fea6.plot(x4[2], 'b^')
-#    fea6.plot(x4[3], 'r^')
-#    fea6.plot(x4[4], 'g^')
-#    fea6.plot(x4[5], 'y^')
-#    fea6.plot(x4[6], 'c^')
-#    fea6.plot(x4[7], 'm^')
-#    fea6.plot(x4[9], 'k^')
     poly4 = PolyCollection(verts4, facecolors = [cc('r'), cc('g'), cc('b'), \
                                         cc('y'), cc('c'), cc('m'), cc('k') ])
+    poly4.set_alpha(0.5)
     fea6.add_collection3d(poly4, zs = zs, zdir = 'y')
+    fea6.autoscale_view(True, True, True)
     fea6.set_xlabel('Seed Number')
     fea6.set_xlim3d(-10, 60)
     fea6.set_ylabel('Order')
     fea6.set_ylim3d(0, 8)
     fea6.set_zlabel('Coefficient')
     fea6.set_zlim3d(-1, 1)
-#    fea3.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
-#    fea4.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
-#    fea5.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
-#    fea6.legend(('I4', 'I5', 'I6', 'I7', 'I1', 'I2', 'I3'))
+
 #    plt.show()
+
 #===============================================================================
 # Feature Selection
 #===============================================================================
@@ -339,7 +318,7 @@ if __name__ == '__main__':
 #                line.append("%s" % (fea[i]))
                 line.append("%s:%s" % (ind[i], fea[i]))
             write.writerow(line)
-#    testdata = None
+
     testset1 = ml.SparseDataSet(test_file)
     testset2 = ml.SparseDataSet(test_file)
 #    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
@@ -375,7 +354,7 @@ if __name__ == '__main__':
 #    demo2d.setData(trainingset1)
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
-#    result1.plotROC('roc_linear%s.pdf' % (id))
+    result1.plotROC('roc_linear%s.pdf' % (id))
     print result1
 
 #===============================================================================
@@ -384,8 +363,10 @@ if __name__ == '__main__':
 
     snl.train(trainingset2)
     result2 = snl.cv(testset2)
+#    snl.preproject(testset2)
     result2.plotROC('roc_nonlinear%s.pdf' % (id))
     print result2
+
 
 #    classifier.scatter(trainingset1)
     plt.show()

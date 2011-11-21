@@ -59,11 +59,11 @@ def choice_strongfeature(X, y, FDR, threshold = 100):
     '''
 #    selected = []
 #    c = int(np.max(y))
-    ind = []
-    ind.extend(FDR)
-    ind.sort()
-    ind = ind[-2]
-    ind = (np.array(FDR) >= ind).nonzero()[0]
+#    ind = []
+#    ind.extend(FDR)
+#    ind.sort()
+#    ind = [v > threshold for v in ind]
+    ind = (np.array(FDR) >= threshold).nonzero()[0]
 #    ind = (np.array(FDR) >= max(FDR)).nonzero()[0]
 #    for i in range(1, c + 1):
 #        y_temp = (y == i).nonzero()[1]
