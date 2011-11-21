@@ -355,7 +355,7 @@ if __name__ == '__main__':
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
     result1.plotROC('roc_linear%s.pdf' % (id))
-    print result1
+
 
 #===============================================================================
 # Non Linear Classifier
@@ -365,9 +365,15 @@ if __name__ == '__main__':
     result2 = snl.cv(testset2)
 #    snl.preproject(testset2)
     result2.plotROC('roc_nonlinear%s.pdf' % (id))
+
+
+    print result1
+#    print result1.getLog()
+    print result1.roc
+
     print result2
-
-
+#    print result2.getLog()
+    print result2.roc
 #    classifier.scatter(trainingset1)
     plt.show()
 
