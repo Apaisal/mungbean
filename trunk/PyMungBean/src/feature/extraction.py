@@ -8,82 +8,82 @@ import cv
 from numpy.ma.core import arctan, max, cos, sin, sum, sqrt
 from math import pi
 
-def cvShiftDFT(src_arr, dst_arr):
-
-    size = cv.GetSize(src_arr)
-    dst_size = cv.GetSize(dst_arr)
-
-#    if dst_size != size:
-#        cv.Error(cv.CV_StsUnmatchedSizes, "cv.ShiftDFT", "Source and Destination arrays must have equal sizes", __FILE__, __LINE__)
-
-    if(src_arr is dst_arr):
-        tmp = cv.CreateMat(size[1] / 2, size[0] / 2, cv.GetElemType(src_arr))
-
-    cx = size[0] / 2
-    cy = size[1] / 2 # image center
-
-    q1 = cv.GetSubRect(src_arr, (0, 0, cx, cy))
-    q2 = cv.GetSubRect(src_arr, (cx, 0, cx, cy))
-    q3 = cv.GetSubRect(src_arr, (cx, cy, cx, cy))
-    q4 = cv.GetSubRect(src_arr, (0, cy, cx, cy))
-    d1 = cv.GetSubRect(src_arr, (0, 0, cx, cy))
-    d2 = cv.GetSubRect(src_arr, (cx, 0, cx, cy))
-    d3 = cv.GetSubRect(src_arr, (cx, cy, cx, cy))
-    d4 = cv.GetSubRect(src_arr, (0, cy, cx, cy))
-
-    if(src_arr is not dst_arr):
-#        if(not cv.CV_ARE_TYPES_EQ(q1, d1)):
-#            cv.Error(cv.CV_StsUnmatchedFormats, "cv.ShiftDFT", "Source and Destination arrays must have the same format", __FILE__, __LINE__)
-
-        cv.Copy(q3, d1)
-        cv.Copy(q4, d2)
-        cv.Copy(q1, d3)
-        cv.Copy(q2, d4)
-
-    else:
-        cv.Copy(q3, tmp)
-        cv.Copy(q1, q3)
-        cv.Copy(tmp, q1)
-        cv.Copy(q4, tmp)
-        cv.Copy(q2, q4)
-        cv.Copy(tmp, q2)
-
-def fourier(name_images):
-    '''
-    '''
-    features = dict()
-    for name in name_images:
-        A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
-        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_TOZERO_INV)
-        cv.ShowImage('fo', A)
-        real = cv.CreateMat(A.cols, A.rows, cv.CV_64FC1)
-        imagine = cv.CreateMat(A.cols, A.rows, cv.CV_64FC1)
-        complex = cv.CreateMat(A.cols, A.rows, cv.CV_64FC2)
-        cv.Threshold(A, A, 90, 255, cv.CV_THRESH_TOZERO_INV)
-        cv.Scale(A, real, 1.0, 0.0)
-        cv.SetZero(imagine)
-        cv.Merge(real, imagine, None, None, complex)
-#        cv.DCT(real, real, cv.CV_DXT_FORWARD)
-
-        cv.DFT(complex, complex, cv.CV_DXT_SCALE, 0)
-        cv.SetZero(real)
-        cv.SetZero(imagine)
-        cv.Split(complex, real, imagine, None, None)
-        cv.Pow(real, real, 2.0)
-        cv.Pow(imagine, imagine, 2.0)
-        cv.Add(real, imagine, real, None)
-        cv.Pow(real, real, 0.5)
+#def cvShiftDFT(src_arr, dst_arr):
 #
-#        # Compute log(1 + Mag)
-#        cv.AddS(real, cv.ScalarAll(1.0), real, None) # 1 + Mag
-#        cv.Log(real, real) # log(1 + Mag)
-        cvShiftDFT(real, real)
-        cvShiftDFT(imagine, imagine)
-
-#        cv.ShowImage('real', real)
-#        cv.ShowImage('imagine', imagine)
-#        cv.WaitKey()
-    return features
+#    size = cv.GetSize(src_arr)
+#    dst_size = cv.GetSize(dst_arr)
+#
+##    if dst_size != size:
+##        cv.Error(cv.CV_StsUnmatchedSizes, "cv.ShiftDFT", "Source and Destination arrays must have equal sizes", __FILE__, __LINE__)
+#
+#    if(src_arr is dst_arr):
+#        tmp = cv.CreateMat(size[1] / 2, size[0] / 2, cv.GetElemType(src_arr))
+#
+#    cx = size[0] / 2
+#    cy = size[1] / 2 # image center
+#
+#    q1 = cv.GetSubRect(src_arr, (0, 0, cx, cy))
+#    q2 = cv.GetSubRect(src_arr, (cx, 0, cx, cy))
+#    q3 = cv.GetSubRect(src_arr, (cx, cy, cx, cy))
+#    q4 = cv.GetSubRect(src_arr, (0, cy, cx, cy))
+#    d1 = cv.GetSubRect(src_arr, (0, 0, cx, cy))
+#    d2 = cv.GetSubRect(src_arr, (cx, 0, cx, cy))
+#    d3 = cv.GetSubRect(src_arr, (cx, cy, cx, cy))
+#    d4 = cv.GetSubRect(src_arr, (0, cy, cx, cy))
+#
+#    if(src_arr is not dst_arr):
+##        if(not cv.CV_ARE_TYPES_EQ(q1, d1)):
+##            cv.Error(cv.CV_StsUnmatchedFormats, "cv.ShiftDFT", "Source and Destination arrays must have the same format", __FILE__, __LINE__)
+#
+#        cv.Copy(q3, d1)
+#        cv.Copy(q4, d2)
+#        cv.Copy(q1, d3)
+#        cv.Copy(q2, d4)
+#
+#    else:
+#        cv.Copy(q3, tmp)
+#        cv.Copy(q1, q3)
+#        cv.Copy(tmp, q1)
+#        cv.Copy(q4, tmp)
+#        cv.Copy(q2, q4)
+#        cv.Copy(tmp, q2)
+#
+#def fourier(name_images):
+#    '''
+#    '''
+#    features = dict()
+#    for name in name_images:
+#        A = cv.LoadImageM(name, cv.CV_LOAD_IMAGE_GRAYSCALE)
+#        cv.Threshold(A, A, 100, 255, cv.CV_THRESH_TOZERO_INV)
+#        cv.ShowImage('fo', A)
+#        real = cv.CreateMat(A.cols, A.rows, cv.CV_64FC1)
+#        imagine = cv.CreateMat(A.cols, A.rows, cv.CV_64FC1)
+#        complex = cv.CreateMat(A.cols, A.rows, cv.CV_64FC2)
+#        cv.Threshold(A, A, 90, 255, cv.CV_THRESH_TOZERO_INV)
+#        cv.Scale(A, real, 1.0, 0.0)
+#        cv.SetZero(imagine)
+#        cv.Merge(real, imagine, None, None, complex)
+##        cv.DCT(real, real, cv.CV_DXT_FORWARD)
+#
+#        cv.DFT(complex, complex, cv.CV_DXT_SCALE, 0)
+#        cv.SetZero(real)
+#        cv.SetZero(imagine)
+#        cv.Split(complex, real, imagine, None, None)
+#        cv.Pow(real, real, 2.0)
+#        cv.Pow(imagine, imagine, 2.0)
+#        cv.Add(real, imagine, real, None)
+#        cv.Pow(real, real, 0.5)
+##
+##        # Compute log(1 + Mag)
+##        cv.AddS(real, cv.ScalarAll(1.0), real, None) # 1 + Mag
+##        cv.Log(real, real) # log(1 + Mag)
+#        cvShiftDFT(real, real)
+#        cvShiftDFT(imagine, imagine)
+#
+##        cv.ShowImage('real', real)
+##        cv.ShowImage('imagine', imagine)
+##        cv.WaitKey()
+#    return features
 
 def moment_base(name_images):
 
@@ -98,6 +98,7 @@ def moment_base(name_images):
 
     features = {'area':area, 'hu1':hu1, 'hu2':hu2, 'hu3':hu3, 'hu4':hu4, 'hu5':hu5, 'hu6':hu6, 'hu7':hu7}
     for name in name_images:
+#        A = cv2.imread(name)
         A = cv.LoadImage(name, cv.CV_LOAD_IMAGE_COLOR)
 
 #        chaincode(A)
@@ -125,7 +126,7 @@ def moment_base(name_images):
 
         area.append(findcontoursarea(s_plane, A))
 
-        moment = cv.Moments(s_plane, True)
+        moment = cv.Moments(cv.GetMat(s_plane), True)
 #        print moment.m00
 #        area.append(cv.GetSpatialMoment(moment, 0, 0))
         hu = cv.GetHuMoments(moment)
