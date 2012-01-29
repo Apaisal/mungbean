@@ -142,7 +142,7 @@ def moment_base(name_images):
 ##                          , "orientation" : orientation(moment)
 #                          , "area" : area
 #                          }
-    normalize(features)
+#    normalize(features)
     A = None
     return features
 
@@ -221,7 +221,7 @@ def first_order_stat(name_images):
     #        std.append(statis._getstddev()[0])
     #        rms.append(statis._getrms()[0])
 
-    normalize(features)
+#    normalize(features)
 
     return  features
 
@@ -240,12 +240,10 @@ def orientation(moments):
     return arctan(2 * du11 / (du20 - du02)) / 2
 
 def normalize(features):
-    '''
-    '''
     for feature in features:
         arr = np.array(features[feature])
         arr = (((arr - arr.min()) / (arr.max() - arr.min())) * 2.0) - 1
-        features[feature] = arr
+        features[feature] = list(arr)
 
 def sign(number):return cmp(number, 0)
 

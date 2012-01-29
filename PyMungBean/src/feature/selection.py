@@ -23,10 +23,15 @@ def FDR_comp(X, y, ind):
 
 #    a = stats.binom_test(range(c), c)
 #    q = ((m[0] - m[1]) ** 2) / (vari[0] ** 2 + vari[1] ** 2)
-    var = 0
-    for i in vari: var += pow(i, 2)
-    q = pow(np.sum(m), 2) / var
-    return np.sum(q);
+    FDR = 0
+    for i in range(c):
+        for j in range(c):
+            if i != j:
+                FDR += pow(m[i] - m[j], 2) / float(pow(vari[i], 2) + pow(vari[j], 2))
+#    var = 0
+#    for i in vari: var += pow(i, 2)
+#    q = pow(np.sum(m), 2) / var
+    return FDR;
 
 
 def scatter_mat(X, y):
@@ -69,4 +74,4 @@ def choice_strongfeature(X, y, FDR, threshold = 100):
 #        y_temp = (y == i).nonzero()[1]
     f_seled = X.take(ind, axis = 0)
 #        selected.append(f_seled.take(y_temp, axis = 1))
-    return ind , f_seled #selected
+    return list(ind) , f_seled #selected
