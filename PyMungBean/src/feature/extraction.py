@@ -142,7 +142,7 @@ def moment_base(name_images):
 ##                          , "orientation" : orientation(moment)
 #                          , "area" : area
 #                          }
-#    normalize(features)
+    normalize(features)
     A = None
     return features
 
@@ -221,7 +221,7 @@ def first_order_stat(name_images):
     #        std.append(statis._getstddev()[0])
     #        rms.append(statis._getrms()[0])
 
-#    normalize(features)
+    normalize(features)
 
     return  features
 
