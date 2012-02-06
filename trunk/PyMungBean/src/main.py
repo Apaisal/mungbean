@@ -8,13 +8,13 @@ import glob
 import csv
 import numpy as np
 from numpy.matlib import ones
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import PyML as ml
 #from PyML import * #@UnusedWildImport
 #from PyML.demo import demo, demo2d
 from PyML.classifiers import svm, multi
-from PyML.evaluators import roc as roc1
-from PyML.evaluators import roc as roc2
+#from PyML.evaluators import roc as roc1
+#from PyML.evaluators import roc as roc2
 #from matplotlib.collections import PolyCollection #, LineCollection
 #from matplotlib.colors import colorConverter
 #from mpl_toolkits.mplot3d.axes3d import Axes3D
@@ -388,18 +388,28 @@ if __name__ == '__main__':
     k2 = ml.ker.Polynomial(3)
     k1 = ml.ker.Linear()
 
-    snl = multi.OneAgainstRest(svm.SVM(\
+    snl1 = multi.OneAgainstRest(svm.SVM(\
                                       k2 , \
                                       c = 10, \
 #                                      optimizer = 'mysmo' \
                                       ))
+#    snl2 = multi.OneAgainstOne(svm.SVM(\
+#                                      k2 , \
+#                                      c = 10, \
+##                                      optimizer = 'mysmo' \
+#                                      ))
 #    snl = ml.SVM(k2)
 #    snl.C = 10
-    sl = multi.OneAgainstRest(svm.SVM(\
+    sl1 = multi.OneAgainstRest(svm.SVM(\
                                       k1 , \
                                       c = 10, \
 #                                      optimizer = 'mysmo' \
                                       ))
+#    sl2 = multi.OneAgainstOne(svm.SVM(\
+#                                      k1 , \
+#                                      c = 10, \
+##                                      optimizer = 'mysmo' \
+#                                      ))
 #    sl = ml.SVM(k1)
 #    sl.C = 10
 #===============================================================================
@@ -409,32 +419,47 @@ if __name__ == '__main__':
     itert = 100
     rocN = 100
     normalize = True
-    sl.train(trainingset1)
+    sl1.train(trainingset1)
+#    sl2.train(trainingset1)
 #    result1 = []
 #    sl.save("linear_svm")
 #    for i in range(100):
 #        result1.append(sl.cv(testset1))
 #        result1[i].plotROC("./a.pdf")
 
-    result1 = sl.nCV(testset1, \
+    result1 = sl1.nCV(testset1, \
                      seed = 1, \
                       cvType = "stratifiedCV", \
 #                      cvType = "cv", \
 #                       intermediateFile = './result_linear' \
                      iterations = itert, \
-                      numFolds = 5)
-
+                      numFolds = 20)
+#    result2 = sl2.nCV(trainingset1, \
+#                     seed = 1, \
+#                      cvType = "stratifiedCV", \
+##                      cvType = "cv", \
+##                       intermediateFile = './result_linear' \
+#                     iterations = itert, \
+#                      numFolds = 5)
+#    result1.computeStats()
 #    demo2d.setData(trainingset1)
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
 #    result1[19].plotROC('roc_linear%s.pdf' % (Idn))
 
-    with open("result_linear_iter", "w") as fd:
+    with open("./result_linear_iter1", "w") as fd:
         for res in result1:
             fd.write(str(res) + "\n")
+#            res.plotROC("a.pdf", rocN = 100)
         fd.write(str(result1) + "\n")
+    result1.save("./linear_result1")
 
-    result1.save("./linear_result")
+#    with open("./result_linear_iter2", "w") as fd:
+#        for res in result2:
+#            fd.write(str(res) + "\n")
+##            res.plotROC("a.pdf", rocN = 100)
+#        fd.write(str(result2) + "\n")
+#    result2.save("./linear_result2")
 #    for i in range(len(result1)):
 #        labels1 = result1[i].getGivenClass()
 #        dvals1 = result1[i].getDecisionFunction()
@@ -447,25 +472,37 @@ if __name__ == '__main__':
 # Non Linear Classifier
 #===============================================================================
 
-    snl.train(trainingset2)
+    snl1.train(trainingset2)
+#    snl2.train(trainingset2)
 
-    result2 = snl.nCV(testset2, \
+    result3 = snl1.nCV(testset2, \
                       seed = 1, \
 #                      cvType = "cv", \
                       cvType = "stratifiedCV", \
 #                      intermediateFile = './result_nonlinear', \
                       iterations = itert, \
-                      numFolds = 5)
-
+                      numFolds = 20)
+#    result4 = snl2.nCV(trainingset2, \
+#                      seed = 1, \
+##                      cvType = "cv", \
+#                      cvType = "stratifiedCV", \
+##                      intermediateFile = './result_nonlinear', \
+#                      iterations = itert, \
+#                      numFolds = 5)
 #    snl.preproject(testset2)
 #    result2[19].plotROC('roc_nonlinear%s.pdf' % (Idn))
 #    result2.save("./result_nonlinear", "short")
-    with open("result_nonlinear_iter", "w") as fd:
-        for res in result2:
+    with open("result_nonlinear_iter1", "w") as fd:
+        for res in result3:
             fd.write(str(res) + "\n")
-        fd.write(str(result2) + "\n")
+        fd.write(str(result3) + "\n")
+    result3.save("./nonlinear_result1")
 
-    result2.save("./nonlinear_result")
+#    with open("./result_nonlinear_iter2", "w") as fd:
+#        for res in result4:
+#            fd.write(str(res) + "\n")
+#        fd.write(str(result4) + "\n")
+#    result4.save("./nonlinear_result2")
 #    labels2 = result2[-1].getGivenClass()
 #    dvals2 = result2[-1].getDecisionFunction()
 #    folds2 = [(dvals2[i], labels2[i]) for i in range(len(labels2))]
