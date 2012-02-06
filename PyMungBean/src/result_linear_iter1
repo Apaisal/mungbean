@@ -1,0 +1,1105 @@
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.925000
+balanced success rate: 0.925000
+area under ROC curve: 0.737500
+area under ROC 50 curve: 0.737500 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    42 
+success rate: 0.907292
+balanced success rate: 0.907292
+area under ROC curve: 0.764583
+area under ROC 50 curve: 0.764583 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    43 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.782639
+area under ROC 50 curve: 0.782639 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    0  
+    3  2    0    46   6  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.754282
+area under ROC 50 curve: 0.754282 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.919792
+balanced success rate: 0.919792
+area under ROC curve: 0.725810
+area under ROC 50 curve: 0.725810 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.896875
+balanced success rate: 0.896875
+area under ROC curve: 0.760648
+area under ROC 50 curve: 0.760648 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    47   0    1  
+    3  2    0    46   4  
+    4  2    2    3    43 
+success rate: 0.923958
+balanced success rate: 0.923958
+area under ROC curve: 0.784838
+area under ROC 50 curve: 0.784838 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.767477
+area under ROC 50 curve: 0.767477 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.742361
+area under ROC 50 curve: 0.742361 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.768287
+area under ROC 50 curve: 0.768287 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.721875
+area under ROC 50 curve: 0.721875 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.912500
+balanced success rate: 0.912500
+area under ROC curve: 0.795139
+area under ROC 50 curve: 0.795139 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.741088
+area under ROC 50 curve: 0.741088 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    3    43 
+success rate: 0.930208
+balanced success rate: 0.930208
+area under ROC curve: 0.797338
+area under ROC 50 curve: 0.797338 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  1    1    1    42 
+success rate: 0.915625
+balanced success rate: 0.915625
+area under ROC curve: 0.786111
+area under ROC 50 curve: 0.786111 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.780093
+area under ROC 50 curve: 0.780093 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.908333
+balanced success rate: 0.908333
+area under ROC curve: 0.742361
+area under ROC 50 curve: 0.742361 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.784028
+area under ROC 50 curve: 0.784028 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.907292
+balanced success rate: 0.907292
+area under ROC curve: 0.768866
+area under ROC 50 curve: 0.768866 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    1    42 
+success rate: 0.930208
+balanced success rate: 0.930208
+area under ROC curve: 0.764583
+area under ROC 50 curve: 0.764583 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    0  
+    3  2    0    47   6  
+    4  2    1    2    42 
+success rate: 0.919792
+balanced success rate: 0.919792
+area under ROC curve: 0.800347
+area under ROC 50 curve: 0.800347 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    43 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.772917
+area under ROC 50 curve: 0.772917 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    2    42 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.729861
+area under ROC 50 curve: 0.729861 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.743519
+area under ROC 50 curve: 0.743519 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    3    43 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.787153
+area under ROC 50 curve: 0.787153 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.753125
+area under ROC 50 curve: 0.753125 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.790046
+area under ROC 50 curve: 0.790046 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.763426
+area under ROC 50 curve: 0.763426 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    1  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    1    43 
+success rate: 0.905208
+balanced success rate: 0.905208
+area under ROC curve: 0.792708
+area under ROC 50 curve: 0.792708 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.752315
+area under ROC 50 curve: 0.752315 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.898958
+balanced success rate: 0.898958
+area under ROC curve: 0.755903
+area under ROC 50 curve: 0.755903 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.909375
+balanced success rate: 0.909375
+area under ROC curve: 0.762269
+area under ROC 50 curve: 0.762269 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.907292
+balanced success rate: 0.907292
+area under ROC curve: 0.777546
+area under ROC 50 curve: 0.777546 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.769213
+area under ROC 50 curve: 0.769213 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.757407
+area under ROC 50 curve: 0.757407 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.908333
+balanced success rate: 0.908333
+area under ROC curve: 0.780324
+area under ROC 50 curve: 0.780324 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.718634
+area under ROC 50 curve: 0.718634 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    42 
+success rate: 0.896875
+balanced success rate: 0.896875
+area under ROC curve: 0.781713
+area under ROC 50 curve: 0.781713 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    2    43 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.800694
+area under ROC 50 curve: 0.800694 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    1  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    1    43 
+success rate: 0.915625
+balanced success rate: 0.915625
+area under ROC curve: 0.756944
+area under ROC 50 curve: 0.756944 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.909375
+balanced success rate: 0.909375
+area under ROC curve: 0.764352
+area under ROC 50 curve: 0.764352 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    0  
+    3  2    0    45   6  
+    4  1    1    4    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.727083
+area under ROC 50 curve: 0.727083 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.792014
+area under ROC 50 curve: 0.792014 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    42 
+success rate: 0.891667
+balanced success rate: 0.891667
+area under ROC curve: 0.765856
+area under ROC 50 curve: 0.765856 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    2    42 
+success rate: 0.909375
+balanced success rate: 0.909375
+area under ROC curve: 0.728935
+area under ROC 50 curve: 0.728935 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    3  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    41 
+success rate: 0.907292
+balanced success rate: 0.907292
+area under ROC curve: 0.756597
+area under ROC 50 curve: 0.756597 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.778704
+area under ROC 50 curve: 0.778704 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.892708
+balanced success rate: 0.892708
+area under ROC curve: 0.765509
+area under ROC 50 curve: 0.765509 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.766840
+area under ROC 50 curve: 0.766840 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    2  
+    3  2    0    45   4  
+    4  1    1    3    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.770486
+area under ROC 50 curve: 0.770486 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.795718
+area under ROC 50 curve: 0.795718 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    42 
+success rate: 0.902083
+balanced success rate: 0.902083
+area under ROC curve: 0.793519
+area under ROC 50 curve: 0.793519 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    4    42 
+success rate: 0.886458
+balanced success rate: 0.886458
+area under ROC curve: 0.757639
+area under ROC 50 curve: 0.757639 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    3  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  1    1    2    41 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.767824
+area under ROC 50 curve: 0.767824 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    0  
+    3  2    0    46   6  
+    4  2    1    2    42 
+success rate: 0.887500
+balanced success rate: 0.887500
+area under ROC curve: 0.753704
+area under ROC 50 curve: 0.753704 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    0  
+    3  2    0    46   6  
+    4  2    1    3    43 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.798727
+area under ROC 50 curve: 0.798727 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    43 
+success rate: 0.957292
+balanced success rate: 0.957292
+area under ROC curve: 0.762384
+area under ROC 50 curve: 0.762384 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.898958
+balanced success rate: 0.898958
+area under ROC curve: 0.771412
+area under ROC 50 curve: 0.771412 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    46   0    1  
+    3  2    0    46   5  
+    4  2    3    3    42 
+success rate: 0.927083
+balanced success rate: 0.927083
+area under ROC curve: 0.759259
+area under ROC 50 curve: 0.759259 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    0  
+    3  2    0    45   6  
+    4  1    1    3    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.779977
+area under ROC 50 curve: 0.779977 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    2  
+    3  2    0    46   4  
+    4  2    1    2    42 
+success rate: 0.923958
+balanced success rate: 0.923958
+area under ROC curve: 0.778009
+area under ROC 50 curve: 0.778009 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  1    1    2    42 
+success rate: 0.910417
+balanced success rate: 0.910417
+area under ROC curve: 0.751620
+area under ROC 50 curve: 0.751620 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.756481
+area under ROC 50 curve: 0.756481 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.787269
+area under ROC 50 curve: 0.787269 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    43 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.749421
+area under ROC 50 curve: 0.749421 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    0  
+    3  2    0    47   6  
+    4  1    1    2    42 
+success rate: 0.920833
+balanced success rate: 0.920833
+area under ROC curve: 0.747454
+area under ROC 50 curve: 0.747454 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  1    1    4    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.790278
+area under ROC 50 curve: 0.790278 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.918750
+balanced success rate: 0.918750
+area under ROC curve: 0.744444
+area under ROC 50 curve: 0.744444 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.797917
+area under ROC 50 curve: 0.797917 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    3  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    41 
+success rate: 0.907292
+balanced success rate: 0.907292
+area under ROC curve: 0.799421
+area under ROC 50 curve: 0.799421 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    1  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    3    44 
+success rate: 0.931250
+balanced success rate: 0.931250
+area under ROC curve: 0.792593
+area under ROC 50 curve: 0.792593 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    0  
+    3  2    0    46   6  
+    4  2    1    3    42 
+success rate: 0.908333
+balanced success rate: 0.908333
+area under ROC curve: 0.722338
+area under ROC 50 curve: 0.722338 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    3  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.778704
+area under ROC 50 curve: 0.778704 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.919792
+balanced success rate: 0.919792
+area under ROC curve: 0.778356
+area under ROC 50 curve: 0.778356 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.732639
+area under ROC 50 curve: 0.732639 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.809838
+area under ROC 50 curve: 0.809838 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    46   0    1  
+    3  2    0    46   5  
+    4  2    3    3    42 
+success rate: 0.895833
+balanced success rate: 0.895833
+area under ROC curve: 0.782407
+area under ROC 50 curve: 0.782407 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.925000
+balanced success rate: 0.925000
+area under ROC curve: 0.760069
+area under ROC 50 curve: 0.760069 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.772569
+area under ROC 50 curve: 0.772569 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.913542
+balanced success rate: 0.913542
+area under ROC curve: 0.777431
+area under ROC 50 curve: 0.777431 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.923958
+balanced success rate: 0.923958
+area under ROC curve: 0.766088
+area under ROC 50 curve: 0.766088 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    2    42 
+success rate: 0.914583
+balanced success rate: 0.914583
+area under ROC curve: 0.756019
+area under ROC 50 curve: 0.756019 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.912500
+balanced success rate: 0.912500
+area under ROC curve: 0.784144
+area under ROC 50 curve: 0.784144 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    3    43 
+success rate: 0.925000
+balanced success rate: 0.925000
+area under ROC curve: 0.748495
+area under ROC 50 curve: 0.748495 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.898958
+balanced success rate: 0.898958
+area under ROC curve: 0.748958
+area under ROC 50 curve: 0.748958 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    47   5  
+    4  2    1    2    42 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.769444
+area under ROC 50 curve: 0.769444 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   4  
+    4  2    1    3    43 
+success rate: 0.904167
+balanced success rate: 0.904167
+area under ROC curve: 0.791898
+area under ROC 50 curve: 0.791898 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.728125
+area under ROC 50 curve: 0.728125 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.794213
+area under ROC 50 curve: 0.794213 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.801968
+area under ROC 50 curve: 0.801968 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.746991
+area under ROC 50 curve: 0.746991 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   1    1  
+    3  2    0    45   5  
+    4  2    1    3    42 
+success rate: 0.902083
+balanced success rate: 0.902083
+area under ROC curve: 0.739236
+area under ROC 50 curve: 0.739236 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    0  
+    3  2    0    47   6  
+    4  2    1    1    42 
+success rate: 0.909375
+balanced success rate: 0.909375
+area under ROC curve: 0.756829
+area under ROC 50 curve: 0.756829 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.892708
+balanced success rate: 0.892708
+area under ROC curve: 0.765046
+area under ROC 50 curve: 0.765046 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  1    1    3    42 
+success rate: 0.908333
+balanced success rate: 0.908333
+area under ROC curve: 0.772917
+area under ROC 50 curve: 0.772917 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.908333
+balanced success rate: 0.908333
+area under ROC curve: 0.784606
+area under ROC 50 curve: 0.784606 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    2    2  
+    2  0    48   0    1  
+    3  2    0    45   5  
+    4  1    1    3    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.755787
+area under ROC 50 curve: 0.755787 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  47   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  1    1    3    42 
+success rate: 0.919792
+balanced success rate: 0.919792
+area under ROC curve: 0.799769
+area under ROC 50 curve: 0.799769 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    1    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    3    42 
+success rate: 0.897917
+balanced success rate: 0.897917
+area under ROC curve: 0.762269
+area under ROC 50 curve: 0.762269 
+Confusion Matrix:
+      Given labels:
+       1    2    3    4  
+    1  46   1    2    2  
+    2  0    48   0    1  
+    3  2    0    46   5  
+    4  2    1    2    42 
+success rate: 0.903125
+balanced success rate: 0.903125
+area under ROC curve: 0.763773
+area under ROC 50 curve: 0.763773 
+number of Results objects: 100
+success rate: 0.910062 (0.010721)
+balanced success rate: 0.910062 (0.010721)
+area under ROC curve: 0.767183 (0.021273)
+area under ROC 50 curve: 0.767183 (0.021273)
