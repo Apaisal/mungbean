@@ -13,7 +13,8 @@ import PyML as ml
 #from PyML import * #@UnusedWildImport
 #from PyML.demo import demo, demo2d
 from PyML.classifiers import svm, multi
-
+from PyML.evaluators import roc as roc1
+from PyML.evaluators import roc as roc2
 #from matplotlib.collections import PolyCollection #, LineCollection
 #from matplotlib.colors import colorConverter
 #from mpl_toolkits.mplot3d.axes3d import Axes3D
@@ -404,6 +405,7 @@ if __name__ == '__main__':
 #===============================================================================
 #    classifier.decisionSurface(sl, trainingset1, testset1)
     itert = 100
+    rocN = 100
     sl.train(trainingset1)
 #    sl.save("linear_svm")
     result1 = sl.nCV(testset1, \
@@ -412,6 +414,7 @@ if __name__ == '__main__':
 #                       intermediateFile = './result_linear' \
                      iterations = itert, \
                       numFolds = 5)
+
 #    demo2d.setData(trainingset1)
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
@@ -420,7 +423,15 @@ if __name__ == '__main__':
         for res in result1:
             fd.write(str(res) + "\n")
         fd.write(str(result1) + "\n")
-    result1[-1].plotROC('roc_linear%s.pdf' % (Idn), rocN = 4)
+
+
+
+    labels1 = result1[-1].getGivenClass()
+    dvals1 = result1[-1].getDecisionFunction()
+    folds1 = [(dvals1[i], labels1[i]) for i in range(len(labels1))]
+    rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 1000)
+    roc1.plotROC(rocFP1, rocTP1, 'roc_linear%s.pdf' % (Idn), numPoints = 1000)
+#
 #===============================================================================
 # Non Linear Classifier
 #===============================================================================
@@ -440,18 +451,15 @@ if __name__ == '__main__':
         for res in result2:
             fd.write(str(res) + "\n")
         fd.write(str(result2) + "\n")
-    result2[-1].plotROC('roc_nonlinear%s.pdf' % (Idn), rocN = 4)
 
-#    print result1
-#    print result1.getLog()
-#    print result1.roc
+    labels2 = result2[-1].getGivenClass()
+    dvals2 = result2[-1].getDecisionFunction()
+    folds2 = [(dvals2[i], labels2[i]) for i in range(len(labels1))]
+    rocFP2, rocTP2, area2 = roc2.roc_VA(folds2, rocN, n_samps = 1000)
+    roc2.plotROC(rocFP2, rocTP2, 'roc_nonlinear%s.pdf' % (Idn), numPoints = 1000)
+#    roc.test()
 
-#    print result2
-#    print result2.getLog()
-#    print result2.roc
-#    classifier.scatter(trainingset1)
-
-    plt.show()
+#    plt.show()
 
     sl = None
     snl = None
