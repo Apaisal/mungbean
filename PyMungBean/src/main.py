@@ -29,38 +29,38 @@ selected_file = 'selected%s.data' % (Idn)
 test_file = 'test%s.data' % (Idn)
 svm_file = 'svm%s.data' % (Idn)
 
-ext_fig1 = plt.figure(1)
-ext_fig2 = plt.figure(2)
-ext_fig3 = plt.figure(3)
-ext_fig4 = plt.figure(4)
-ext_fig5 = plt.figure(5)
-ext_fig6 = plt.figure(6)
-ext_fig7 = plt.figure(7)
-ext_fig8 = plt.figure(8)
-ext_fig9 = plt.figure(9)
-sel_fig = plt.figure(10)
-seled_fig = plt.figure(11)
+#ext_fig1 = plt.figure(1)
+#ext_fig2 = plt.figure(2)
+#ext_fig3 = plt.figure(3)
+#ext_fig4 = plt.figure(4)
+#ext_fig5 = plt.figure(5)
+#ext_fig6 = plt.figure(6)
+#ext_fig7 = plt.figure(7)
+#ext_fig8 = plt.figure(8)
+#ext_fig9 = plt.figure(9)
+#sel_fig = plt.figure(10)
+#seled_fig = plt.figure(11)
 #final_fig = plt.figure(6)
 
-fea1 = ext_fig1.add_subplot(111)
-fea1.grid()
-fea2 = ext_fig2.add_subplot(111)
-fea2.grid()
-
-fea3 = ext_fig3.add_subplot(111)
-fea3.grid()
-fea4 = ext_fig4.add_subplot(111)
-fea4.grid()
-fea5 = ext_fig5.add_subplot(111)
-fea5.grid()
-fea6 = ext_fig6.add_subplot(111)
-fea6.grid()
-fea7 = ext_fig7.add_subplot(111)
-fea7.grid()
-fea8 = ext_fig8.add_subplot(111)
-fea8.grid()
-fea9 = ext_fig9.add_subplot(111)
-fea9.grid()
+#fea1 = ext_fig1.add_subplot(111)
+#fea1.grid()
+#fea2 = ext_fig2.add_subplot(111)
+#fea2.grid()
+#
+#fea3 = ext_fig3.add_subplot(111)
+#fea3.grid()
+#fea4 = ext_fig4.add_subplot(111)
+#fea4.grid()
+#fea5 = ext_fig5.add_subplot(111)
+#fea5.grid()
+#fea6 = ext_fig6.add_subplot(111)
+#fea6.grid()
+#fea7 = ext_fig7.add_subplot(111)
+#fea7.grid()
+#fea8 = ext_fig8.add_subplot(111)
+#fea8.grid()
+#fea9 = ext_fig9.add_subplot(111)
+#fea9.grid()
 #fea3 = Axes3D(ext_fig3)
 #fea3.grid()
 #fea4 = Axes3D(ext_fig4)
@@ -71,9 +71,9 @@ fea9.grid()
 #fea6.grid()
 
 
-fx = sel_fig.add_subplot(111)
-fx.grid()
-sx = seled_fig.add_subplot(111)
+#fx = sel_fig.add_subplot(111)
+#fx.grid()
+#sx = seled_fig.add_subplot(111)
 
 def extraction(files):
     feature1 = feature.extraction.first_order_stat(files)
@@ -117,80 +117,80 @@ if __name__ == '__main__':
 #    cfiles = None
 
 # Plot mean and variance
-    fea1.set_xlabel('Var')
-    fea1.set_ylabel('Mean')
-#    fea1.set_xlabel('STD')
-#    fea1.set_ylabel('RMS')
-    fea1.set_title('Color')
-    fea1.plot(c1["var"], c1["mean"], 'rx')
-    fea1.plot(c2["var"], c2["mean"], 'bo')
-    fea1.plot(c3["var"], c3["mean"], 'g^')
-    fea1.plot(c4["var"], c4["mean"], 'y.')
-    fea1.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-# Plot Area
-    fea2.set_title('Size')
-    fea2.plot(c1["area"], 'rx')
-    fea2.plot(c2["area"], 'bo')
-    fea2.plot(c3["area"], 'g^')
-    fea2.plot(c4["area"], 'y.')
-    fea2.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-# Plot Hu
-    fea3.set_ylabel('Coefficient')
-    fea3.set_title('First Absolute Orthogonal Moment Invariant')
-    fea3.plot(c1["hu1"], 'rx')
-    fea3.plot(c2["hu1"], 'bo')
-    fea3.plot(c3["hu1"], 'g^')
-    fea3.plot(c4["hu1"], 'y.')
-    fea3.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea4.set_ylabel('Coefficient')
-    fea4.set_title('Second Absolute Orthogonal Moment Invariant')
-    fea4.plot(c1["hu2"], 'rx')
-    fea4.plot(c2["hu2"], 'bo')
-    fea4.plot(c3["hu2"], 'g^')
-    fea4.plot(c4["hu2"], 'y.')
-    fea4.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea5.set_ylabel('Coefficient')
-    fea5.set_title('Third Absolute Orthogonal Moment Invariant')
-    fea5.plot(c1["hu3"], 'rx')
-    fea5.plot(c2["hu3"], 'bo')
-    fea5.plot(c3["hu3"], 'g^')
-    fea5.plot(c4["hu3"], 'y.')
-    fea5.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea6.set_ylabel('Coefficient')
-    fea6.set_title('Fourth Absolute Orthogonal Moment Invariant')
-    fea6.plot(c1["hu4"], 'rx')
-    fea6.plot(c2["hu4"], 'bo')
-    fea6.plot(c3["hu4"], 'g^')
-    fea6.plot(c4["hu4"], 'y.')
-    fea6.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea7.set_ylabel('Coefficient')
-    fea7.set_title('Fifth Absolute Orthogonal Moment Invariant')
-    fea7.plot(c1["hu5"], 'rx')
-    fea7.plot(c2["hu5"], 'bo')
-    fea7.plot(c3["hu5"], 'g^')
-    fea7.plot(c4["hu5"], 'y.')
-    fea7.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea8.set_ylabel('Coefficient')
-    fea8.set_title('Sixth Absolute Orthogonal Moment Invariant')
-    fea8.plot(c1["hu6"], 'rx')
-    fea8.plot(c2["hu6"], 'bo')
-    fea8.plot(c3["hu6"], 'g^')
-    fea8.plot(c4["hu6"], 'y.')
-    fea8.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
-
-    fea9.set_ylabel('Coefficient')
-    fea9.set_title('Seventh Absolute Orthogonal Moment Invariant')
-    fea9.plot(c1["hu7"], 'rx')
-    fea9.plot(c2["hu7"], 'bo')
-    fea9.plot(c3["hu7"], 'g^')
-    fea9.plot(c4["hu7"], 'y.')
-    fea9.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#    fea1.set_xlabel('Var')
+#    fea1.set_ylabel('Mean')
+##    fea1.set_xlabel('STD')
+##    fea1.set_ylabel('RMS')
+#    fea1.set_title('Color')
+#    fea1.plot(c1["var"], c1["mean"], 'rx')
+#    fea1.plot(c2["var"], c2["mean"], 'bo')
+#    fea1.plot(c3["var"], c3["mean"], 'g^')
+#    fea1.plot(c4["var"], c4["mean"], 'y.')
+#    fea1.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+## Plot Area
+#    fea2.set_title('Size')
+#    fea2.plot(c1["area"], 'rx')
+#    fea2.plot(c2["area"], 'bo')
+#    fea2.plot(c3["area"], 'g^')
+#    fea2.plot(c4["area"], 'y.')
+#    fea2.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+## Plot Hu
+#    fea3.set_ylabel('Coefficient')
+#    fea3.set_title('First Absolute Orthogonal Moment Invariant')
+#    fea3.plot(c1["hu1"], 'rx')
+#    fea3.plot(c2["hu1"], 'bo')
+#    fea3.plot(c3["hu1"], 'g^')
+#    fea3.plot(c4["hu1"], 'y.')
+#    fea3.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea4.set_ylabel('Coefficient')
+#    fea4.set_title('Second Absolute Orthogonal Moment Invariant')
+#    fea4.plot(c1["hu2"], 'rx')
+#    fea4.plot(c2["hu2"], 'bo')
+#    fea4.plot(c3["hu2"], 'g^')
+#    fea4.plot(c4["hu2"], 'y.')
+#    fea4.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea5.set_ylabel('Coefficient')
+#    fea5.set_title('Third Absolute Orthogonal Moment Invariant')
+#    fea5.plot(c1["hu3"], 'rx')
+#    fea5.plot(c2["hu3"], 'bo')
+#    fea5.plot(c3["hu3"], 'g^')
+#    fea5.plot(c4["hu3"], 'y.')
+#    fea5.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea6.set_ylabel('Coefficient')
+#    fea6.set_title('Fourth Absolute Orthogonal Moment Invariant')
+#    fea6.plot(c1["hu4"], 'rx')
+#    fea6.plot(c2["hu4"], 'bo')
+#    fea6.plot(c3["hu4"], 'g^')
+#    fea6.plot(c4["hu4"], 'y.')
+#    fea6.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea7.set_ylabel('Coefficient')
+#    fea7.set_title('Fifth Absolute Orthogonal Moment Invariant')
+#    fea7.plot(c1["hu5"], 'rx')
+#    fea7.plot(c2["hu5"], 'bo')
+#    fea7.plot(c3["hu5"], 'g^')
+#    fea7.plot(c4["hu5"], 'y.')
+#    fea7.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea8.set_ylabel('Coefficient')
+#    fea8.set_title('Sixth Absolute Orthogonal Moment Invariant')
+#    fea8.plot(c1["hu6"], 'rx')
+#    fea8.plot(c2["hu6"], 'bo')
+#    fea8.plot(c3["hu6"], 'g^')
+#    fea8.plot(c4["hu6"], 'y.')
+#    fea8.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
+#
+#    fea9.set_ylabel('Coefficient')
+#    fea9.set_title('Seventh Absolute Orthogonal Moment Invariant')
+#    fea9.plot(c1["hu7"], 'rx')
+#    fea9.plot(c2["hu7"], 'bo')
+#    fea9.plot(c3["hu7"], 'g^')
+#    fea9.plot(c4["hu7"], 'y.')
+#    fea9.legend(('CN72', 'KPS2', 'AUT1', 'MTS1'))
 
 #    plt.show()
 #    xs = np.arange(1, 51)
@@ -313,12 +313,12 @@ if __name__ == '__main__':
     FDR = []
     for i in range(len(X1)):
         FDR.append(feature.selection.FDR_comp(X1, Y1, i))
-    fx.bar(range(len(X1)), FDR, 0.05, color = 'r')
-    fx.set_ylabel('Ratio')
-    fx.set_xlabel('Feature')
-    fx.set_title('Fisher\'s Discriminate Ratio')
-    fx.set_xticks(range(len(X1)))
-    fx.set_xticklabels((c1.keys()))
+#    fx.bar(range(len(X1)), FDR, 0.05, color = 'r')
+#    fx.set_ylabel('Ratio')
+#    fx.set_xlabel('Feature')
+#    fx.set_title('Fisher\'s Discriminate Ratio')
+#    fx.set_xticks(range(len(X1)))
+#    fx.set_xticklabels((c1.keys()))
 #    plt.show()
     # Choice ratio more than 50
     ind , selected = feature.selection.choice_strongfeature(X1, Y1, FDR, 50)
@@ -406,11 +406,18 @@ if __name__ == '__main__':
 #    classifier.decisionSurface(sl, trainingset1, testset1)
     itert = 100
     rocN = 100
+    normalize = True
     sl.train(trainingset1)
+#    result1 = []
 #    sl.save("linear_svm")
+#    for i in range(100):
+#        result1.append(sl.cv(testset1))
+#        result1[i].plotROC("./a.pdf")
+
     result1 = sl.nCV(testset1, \
                      seed = 1, \
                       cvType = "stratifiedCV", \
+#                      cvType = "cv", \
 #                       intermediateFile = './result_linear' \
                      iterations = itert, \
                       numFolds = 5)
@@ -419,18 +426,20 @@ if __name__ == '__main__':
 #    demo2d.getData()
 #    demo2d.decisionSurface(sl)
 #    result1[19].plotROC('roc_linear%s.pdf' % (Idn))
+
     with open("result_linear_iter", "w") as fd:
         for res in result1:
             fd.write(str(res) + "\n")
         fd.write(str(result1) + "\n")
 
-
-
-    labels1 = result1[-1].getGivenClass()
-    dvals1 = result1[-1].getDecisionFunction()
-    folds1 = [(dvals1[i], labels1[i]) for i in range(len(labels1))]
-    rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 1000)
-    roc1.plotROC(rocFP1, rocTP1, 'roc_linear%s.pdf' % (Idn), numPoints = 1000)
+    result1.save("./linear_result")
+#    for i in range(len(result1)):
+#        labels1 = result1[i].getGivenClass()
+#        dvals1 = result1[i].getDecisionFunction()
+#        folds1 = [(dvals1[j], labels1[j]) for j in range(len(labels1))]
+#        for k in range(4):
+#            rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 100, selectClass = k)
+#            roc1.plotROC(rocFP1, rocTP1, 'roc_linear%d_%d.pdf' % (i, k), numPoints = 100)
 #
 #===============================================================================
 # Non Linear Classifier
@@ -439,6 +448,7 @@ if __name__ == '__main__':
     snl.train(trainingset2)
     result2 = snl.nCV(testset2, \
                       seed = 1, \
+#                      cvType = "cv", \
                       cvType = "stratifiedCV", \
 #                      intermediateFile = './result_nonlinear', \
                       iterations = itert, \
@@ -452,11 +462,14 @@ if __name__ == '__main__':
             fd.write(str(res) + "\n")
         fd.write(str(result2) + "\n")
 
-    labels2 = result2[-1].getGivenClass()
-    dvals2 = result2[-1].getDecisionFunction()
-    folds2 = [(dvals2[i], labels2[i]) for i in range(len(labels1))]
-    rocFP2, rocTP2, area2 = roc2.roc_VA(folds2, rocN, n_samps = 1000)
-    roc2.plotROC(rocFP2, rocTP2, 'roc_nonlinear%s.pdf' % (Idn), numPoints = 1000)
+    result2.save("./nonlinear_result")
+#    labels2 = result2[-1].getGivenClass()
+#    dvals2 = result2[-1].getDecisionFunction()
+#    folds2 = [(dvals2[i], labels2[i]) for i in range(len(labels2))]
+#    for k in range(4):
+#        rocFP2, rocTP2, area2 = roc2.roc_VA(folds2, rocN, n_samps = 100, selectClass = k)
+#        roc2.plotROC(rocFP2, rocTP2, 'roc_nonlinear%d_%d.pdf' % (0, k), numPoints = 100)
+
 #    roc.test()
 
 #    plt.show()
