@@ -379,6 +379,8 @@ if __name__ == '__main__':
 #    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
     testset1 = ml.SparseDataSet(test_file)
     testset2 = ml.SparseDataSet(test_file)
+
+
 #    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
 #    classifier.decisionSurface(sl, trainingset1, testset1)
@@ -446,6 +448,7 @@ if __name__ == '__main__':
 #===============================================================================
 
     snl.train(trainingset2)
+
     result2 = snl.nCV(testset2, \
                       seed = 1, \
 #                      cvType = "cv", \
@@ -474,13 +477,13 @@ if __name__ == '__main__':
 
 #    plt.show()
 
-    sl = None
-    snl = None
-    trainingset1 = None
-    trainingset2 = None
-    testset1 = None
-    testset2 = None
-    r1 = None
-    r2 = None
-    k1 = None
-    k2 = None
+#    sl = None
+#    snl = None
+#    trainingset1 = None
+#    trainingset2 = None
+#    testset1 = None
+#    testset2 = None
+#    r1 = None
+#    r2 = None
+#    k1 = None
+#    k2 = None
