@@ -23,8 +23,10 @@ from PyML import *
 #==============================================================================
 if __name__ == '__main__':
     rocN = 100
-    color1 = ['b', 'g', 'r', 'c']
-    color2 = ['m', 'y', 'k', '-b']
+#    color1 = ['b', 'g', 'r', 'c']
+#    color2 = ['m', 'y', 'k', 'b']
+    color1 = ['b', 'b', 'b', 'b']
+    color2 = ['k', 'k', 'k', 'k']
     linearResult = myio.load("./linear_result1")
 #    with open("./result_linear_roc", "w") as fd:
     label1 = []
@@ -36,10 +38,16 @@ if __name__ == '__main__':
 
 #        folds1 = [[i  for elem in dval for i in elem], [i  for elem in label for i in elem]]
     for k in range(4):
+#        if k == 3:
+        sshow = True
+#        else:
+#            sshow = False
         rocFP1, rocTP1, area1 = roc1.roc(dval1, label1, rocN, selectClass = k)
 #            rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 100, selectClass = k)
-        roc1.plotROC(rocFP1, rocTP1, 'roc_linear%d_%d.pdf' % (i, k), numPoints = 100, show = True, plotStr = "-%s" % (color1[k]))
+        roc1.plotROC(rocFP1, rocTP1, 'roc_linear%d_%d.pdf' % (i, k), numPoints = 100, show = sshow, plotStr = "-%s" % (color1[k]))
 
+    del label1[:]
+    del dval1[:]
 #
     nonlinearResult = myio.load("./nonlinear_result1")
 #    with open("./result_nonlinear_roc", "w") as fd:
@@ -52,7 +60,13 @@ if __name__ == '__main__':
 
 #        folds1 = [[i  for elem in dval for i in elem], [i  for elem in label for i in elem]]
     for k in range(4):
+        if k == 3:
+            sshow = True
+        else:
+            sshow = False
         rocFP2, rocTP2, area2 = roc2.roc(dval2, label2, rocN, selectClass = k)
 #            rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 100, selectClass = k)
         roc2.plotROC(rocFP2, rocTP2, 'roc_nonlinear%d_%d.pdf' % (i, k), numPoints = 100, show = True, plotStr = "-%s" % (color2[k]))
 
+    del label2[:]
+    del dval2[:]
