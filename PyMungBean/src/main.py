@@ -9,10 +9,10 @@ import csv
 import numpy as np
 from numpy.matlib import ones
 #import matplotlib.pyplot as plt
-import PyML as ml
+#import PyML as ml
 #from PyML import * #@UnusedWildImport
 #from PyML.demo import demo, demo2d
-from PyML.classifiers import svm, multi
+#from PyML.classifiers import svm, multi
 #from PyML.evaluators import roc as roc1
 #from PyML.evaluators import roc as roc2
 #from matplotlib.collections import PolyCollection #, LineCollection
@@ -370,133 +370,135 @@ if __name__ == '__main__':
             write.writerow(line)
 
 
-#===============================================================================
-# Machine Learning
-#===============================================================================
-    trainingset1 = ml.SparseDataSet(selected_file)
-    trainingset2 = ml.SparseDataSet(selected_file)
-#    trainingset1 = ml.VectorDataSet(selected_file, labelsColumn=0)
-#    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
-    testset1 = ml.SparseDataSet(test_file)
-    testset2 = ml.SparseDataSet(test_file)
-
-
-#    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
-#    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
-#    classifier.decisionSurface(sl, trainingset1, testset1)
-
-    k2 = ml.ker.Polynomial(3)
-    k1 = ml.ker.Linear()
-
-    snl1 = multi.OneAgainstRest(svm.SVM(\
-                                      k2 , \
-                                      c = 10, \
-#                                      optimizer = 'mysmo' \
-                                      ))
-#    snl2 = multi.OneAgainstOne(svm.SVM(\
+##===============================================================================
+## Machine Learning
+##===============================================================================
+#    trainingset1 = ml.SparseDataSet(selected_file)
+#    trainingset2 = ml.SparseDataSet(selected_file)
+##    trainingset1 = ml.VectorDataSet(selected_file, labelsColumn=0)
+##    trainingset2 = ml.VectorDataSet(selected_file, labelsColumn=0)
+##    testset1 = ml.SparseDataSet(test_file)
+##    testset2 = ml.SparseDataSet(test_file)
+#
+#
+##    testset1 = ml.VectorDataSet(test_file, labelsColumn=0)
+##    testset2 = ml.VectorDataSet(test_file, labelsColumn=0)
+##    classifier.decisionSurface(sl, trainingset1, testset1)
+#
+#    k2 = ml.ker.Polynomial(3)
+#    k1 = ml.ker.Linear()
+#
+#    snl1 = multi.OneAgainstRest(svm.SVM(\
 #                                      k2 , \
 #                                      c = 10, \
 ##                                      optimizer = 'mysmo' \
 #                                      ))
-#    snl = ml.SVM(k2)
-#    snl.C = 10
-    sl1 = multi.OneAgainstRest(svm.SVM(\
-                                      k1 , \
-                                      c = 10, \
-#                                      optimizer = 'mysmo' \
-                                      ))
-#    sl2 = multi.OneAgainstOne(svm.SVM(\
+##    snl2 = multi.OneAgainstOne(svm.SVM(\
+##                                      k2 , \
+##                                      c = 10, \
+###                                      optimizer = 'mysmo' \
+##                                      ))
+##    snl = ml.SVM(k2)
+##    snl.C = 10
+#    sl1 = multi.OneAgainstRest(svm.SVM(\
 #                                      k1 , \
-#                                      c = 10, \
+#                                      c = 1, \
 ##                                      optimizer = 'mysmo' \
 #                                      ))
-#    sl = ml.SVM(k1)
-#    sl.C = 10
-#===============================================================================
-# Linear Classifier
-#===============================================================================
-#    classifier.decisionSurface(sl, trainingset1, testset1)
-    itert = 100
-    rocN = 100
-    normalize = True
-    sl1.train(trainingset1)
-#    sl2.train(trainingset1)
-#    result1 = []
-#    sl.save("linear_svm")
-#    for i in range(100):
-#        result1.append(sl.cv(testset1))
-#        result1[i].plotROC("./a.pdf")
-
-    result1 = sl1.nCV(testset1, \
-                     seed = 1, \
-                      cvType = "stratifiedCV", \
-#                      cvType = "cv", \
-#                       intermediateFile = './result_linear' \
-                     iterations = itert, \
-                      numFolds = 20)
-#    result2 = sl2.nCV(trainingset1, \
+##    sl2 = multi.OneAgainstOne(svm.SVM(\
+##                                      k1 , \
+##                                      c = 10, \
+###                                      optimizer = 'mysmo' \
+##                                      ))
+##    sl = ml.SVM(k1)
+##    sl.C = 10
+##===============================================================================
+## Linear Classifier
+##===============================================================================
+##    classifier.decisionSurface(sl, trainingset1, testset1)
+#    itert = 100
+#    rocN = 100
+#    normalize = True
+#    sl1.train(trainingset1)
+##    sl2.train(trainingset1)
+##    result1 = []
+##    sl.save("linear_svm")
+##    for i in range(100):
+##        result1.append(sl.cv(testset1))
+##        result1[i].plotROC("./a.pdf")
+#
+#    result1 = sl1.nCV(trainingset1, \
 #                     seed = 1, \
 #                      cvType = "stratifiedCV", \
 ##                      cvType = "cv", \
 ##                       intermediateFile = './result_linear' \
 #                     iterations = itert, \
-#                      numFolds = 5)
-#    result1.computeStats()
-#    demo2d.setData(trainingset1)
-#    demo2d.getData()
-#    demo2d.decisionSurface(sl)
-#    result1[19].plotROC('roc_linear%s.pdf' % (Idn))
-
-    with open("./result_linear_iter1", "w") as fd:
-        for res in result1:
-            fd.write(str(res) + "\n")
-#            res.plotROC("a.pdf", rocN = 100)
-        fd.write(str(result1) + "\n")
-    result1.save("./linear_result1")
-
-#    with open("./result_linear_iter2", "w") as fd:
-#        for res in result2:
+#                      numFolds = 4)
+##    result2 = sl2.nCV(trainingset1, \
+##                     seed = 1, \
+##                      cvType = "stratifiedCV", \
+###                      cvType = "cv", \
+###                       intermediateFile = './result_linear' \
+##                     iterations = itert, \
+##                      numFolds = 5)
+##    result1.computeStats()
+##    demo2d.setData(trainingset1)
+##    demo2d.getData()
+##    demo2d.decisionSurface(sl)
+##    result1[19].plotROC('roc_linear%s.pdf' % (Idn))
+#
+#    with open("./result_linear_iter1", "w") as fd:
+#        for res in result1:
 #            fd.write(str(res) + "\n")
 ##            res.plotROC("a.pdf", rocN = 100)
-#        fd.write(str(result2) + "\n")
-#    result2.save("./linear_result2")
-#    for i in range(len(result1)):
-#        labels1 = result1[i].getGivenClass()
-#        dvals1 = result1[i].getDecisionFunction()
-#        folds1 = [(dvals1[j], labels1[j]) for j in range(len(labels1))]
-#        for k in range(4):
-#            rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 100, selectClass = k)
-#            roc1.plotROC(rocFP1, rocTP1, 'roc_linear%d_%d.pdf' % (i, k), numPoints = 100)
+#        fd.write(str(result1) + "\n")
+#        fd.close()
+#    result1.save("./linear_result1")
 #
-#===============================================================================
-# Non Linear Classifier
-#===============================================================================
-
-    snl1.train(trainingset2)
-#    snl2.train(trainingset2)
-
-    result3 = snl1.nCV(testset2, \
-                      seed = 1, \
-#                      cvType = "cv", \
-                      cvType = "stratifiedCV", \
-#                      intermediateFile = './result_nonlinear', \
-                      iterations = itert, \
-                      numFolds = 20)
-#    result4 = snl2.nCV(trainingset2, \
+##    with open("./result_linear_iter2", "w") as fd:
+##        for res in result2:
+##            fd.write(str(res) + "\n")
+###            res.plotROC("a.pdf", rocN = 100)
+##        fd.write(str(result2) + "\n")
+##    result2.save("./linear_result2")
+##    for i in range(len(result1)):
+##        labels1 = result1[i].getGivenClass()
+##        dvals1 = result1[i].getDecisionFunction()
+##        folds1 = [(dvals1[j], labels1[j]) for j in range(len(labels1))]
+##        for k in range(4):
+##            rocFP1, rocTP1, area1 = roc1.roc_VA(folds1, rocN, n_samps = 100, selectClass = k)
+##            roc1.plotROC(rocFP1, rocTP1, 'roc_linear%d_%d.pdf' % (i, k), numPoints = 100)
+##
+##===============================================================================
+## Non Linear Classifier
+##===============================================================================
+#
+#    snl1.train(trainingset2)
+##    snl2.train(trainingset2)
+#
+#    result3 = snl1.nCV(trainingset2, \
 #                      seed = 1, \
 ##                      cvType = "cv", \
 #                      cvType = "stratifiedCV", \
 ##                      intermediateFile = './result_nonlinear', \
 #                      iterations = itert, \
-#                      numFolds = 5)
-#    snl.preproject(testset2)
-#    result2[19].plotROC('roc_nonlinear%s.pdf' % (Idn))
-#    result2.save("./result_nonlinear", "short")
-    with open("result_nonlinear_iter1", "w") as fd:
-        for res in result3:
-            fd.write(str(res) + "\n")
-        fd.write(str(result3) + "\n")
-    result3.save("./nonlinear_result1")
+#                      numFolds = 4)
+##    result4 = snl2.nCV(trainingset2, \
+##                      seed = 1, \
+###                      cvType = "cv", \
+##                      cvType = "stratifiedCV", \
+###                      intermediateFile = './result_nonlinear', \
+##                      iterations = itert, \
+##                      numFolds = 5)
+##    snl.preproject(testset2)
+##    result2[19].plotROC('roc_nonlinear%s.pdf' % (Idn))
+##    result2.save("./result_nonlinear", "short")
+#    with open("result_nonlinear_iter1", "w") as fd:
+#        for res in result3:
+#            fd.write(str(res) + "\n")
+#        fd.write(str(result3) + "\n")
+#        fd.close()
+#    result3.save("./nonlinear_result1")
 
 #    with open("./result_nonlinear_iter2", "w") as fd:
 #        for res in result4:
